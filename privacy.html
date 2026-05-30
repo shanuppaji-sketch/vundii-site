@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Vundii</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --dark: #0a0a0c; --carbon: #111114; --mid: #1c1c22;
+      --muted: #6e6e7a; --white: #ffffff;
+      --fg-1: #F5F5F7; --fg-2: #C7C7CC; --fg-3: #98989D;
+      --blue: #0071E3; --border: rgba(255,255,255,0.10);
+    }
+    body { background: var(--dark); color: var(--fg-2); font-family: 'Inter Tight', sans-serif; font-size: 16px; line-height: 1.7; }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 40px; border-bottom: 1px solid var(--border); }
+    nav a.logo { text-decoration: none; color: var(--white); font-size: 18px; font-weight: 600; letter-spacing: -0.02em; }
+    nav a.logo span { color: var(--blue); }
+    nav a.back { color: var(--fg-3); font-size: 14px; text-decoration: none; }
+    nav a.back:hover { color: var(--white); }
+    main { max-width: 720px; margin: 60px auto; padding: 0 24px 80px; }
+    h1 { color: var(--white); font-size: 32px; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 8px; }
+    .meta { color: var(--fg-3); font-size: 14px; margin-bottom: 48px; }
+    h2 { color: var(--white); font-size: 18px; font-weight: 600; margin: 40px 0 12px; }
+    p { margin-bottom: 16px; }
+    ul { padding-left: 24px; margin-bottom: 16px; }
+    li { margin-bottom: 8px; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 16px; font-size: 14px; }
+    th { text-align: left; color: var(--white); padding: 10px 12px; background: var(--mid); border: 1px solid var(--border); }
+    td { padding: 10px 12px; border: 1px solid var(--border); vertical-align: top; }
+    footer { text-align: center; padding: 40px 24px; color: var(--fg-3); font-size: 13px; border-top: 1px solid var(--border); }
+    footer a { color: var(--fg-3); text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="/">Vund<span>ii</span></a>
+  <a class="back" href="/">← Back to vundii.com</a>
+</nav>
+
+<main>
+  <h1>Privacy Policy</h1>
+  <p class="meta">Effective date: June 1, 2026 &nbsp;·&nbsp; [LLC NAME], Texas</p>
+
+  <p>This Privacy Policy explains how [LLC NAME] ("we," "us," or "our") collects, uses, and protects information when you use Vundii ("the Service"). We take the privacy of your financial data seriously.</p>
+
+  <h2>1. Information We Collect</h2>
+  <p><strong>Information you provide directly:</strong></p>
+  <ul>
+    <li>Account information: email address, password (stored as a hash — we never see your password)</li>
+    <li>Financial planning data: retirement account balances, income, expenses, assets, liabilities, and other figures you enter to model your retirement</li>
+    <li>Profile data: birth year, retirement age, state of residence, and similar planning inputs</li>
+  </ul>
+  <p><strong>Information collected automatically:</strong></p>
+  <ul>
+    <li>Basic usage logs: timestamps of logins and API requests, for security and debugging</li>
+    <li>No advertising trackers, no third-party analytics pixels</li>
+  </ul>
+
+  <h2>2. How We Use Your Information</h2>
+  <table>
+    <tr><th>Purpose</th><th>Data Used</th></tr>
+    <tr><td>Providing the Service (running projections, storing your plan)</td><td>All financial data you enter</td></tr>
+    <tr><td>Account authentication</td><td>Email address</td></tr>
+    <tr><td>Billing and subscription management</td><td>Email address (via Stripe — we do not store payment card data)</td></tr>
+    <tr><td>Service communications (receipts, expiry notices)</td><td>Email address</td></tr>
+    <tr><td>Security and abuse prevention</td><td>Usage logs</td></tr>
+  </table>
+  <p>We do not use your financial data for advertising, profiling, or any purpose other than providing the Service to you.</p>
+
+  <h2>3. Data Sharing</h2>
+  <p>We do not sell, rent, or trade your personal or financial data. We share data only with:</p>
+  <ul>
+    <li><strong>Supabase</strong> — cloud database and authentication provider. Your data is stored in their infrastructure. <a href="https://supabase.com/privacy" target="_blank" rel="noopener">Supabase Privacy Policy</a></li>
+    <li><strong>Stripe</strong> — payment processing. We share your email address with Stripe to manage your subscription. Stripe handles all payment card data directly. <a href="https://stripe.com/privacy" target="_blank" rel="noopener">Stripe Privacy Policy</a></li>
+    <li><strong>Law enforcement</strong> — only when required by a valid legal process (court order, subpoena)</li>
+  </ul>
+
+  <h2>4. Data Security</h2>
+  <ul>
+    <li>All data is transmitted over HTTPS (TLS encryption)</li>
+    <li>Data at rest is encrypted by Supabase's infrastructure</li>
+    <li>Row-level security policies ensure each user can only access their own data</li>
+    <li>Passwords are never stored — authentication is managed by Supabase Auth</li>
+    <li>We do not have access to your payment card details</li>
+  </ul>
+
+  <h2>5. Data Retention</h2>
+  <p>While your account is active, we retain your data to provide the Service. If you cancel your subscription or delete your account:</p>
+  <ul>
+    <li>Your data is retained for 30 days in case you wish to reactivate</li>
+    <li>After 30 days, all personal data and financial planning data is permanently deleted</li>
+    <li>Stripe retains billing records as required by law</li>
+  </ul>
+
+  <h2>6. Your Rights</h2>
+  <p>Regardless of where you live, you may:</p>
+  <ul>
+    <li><strong>Access</strong> your data — all your financial data is visible and editable within the app</li>
+    <li><strong>Delete</strong> your account and data — email us at <a href="mailto:vundii.support@gmail.com">vundii.support@gmail.com</a> or delete from within the app</li>
+    <li><strong>Export</strong> your data — contact us to request a copy</li>
+    <li><strong>Correct</strong> inaccurate data — edit directly within the app</li>
+  </ul>
+  <p><strong>California residents (CCPA):</strong> You have the right to know what personal information we collect, to request deletion, and to opt out of sale (we do not sell data). To exercise these rights, email <a href="mailto:vundii.support@gmail.com">vundii.support@gmail.com</a>.</p>
+  <p><strong>Texas residents (TDPSA):</strong> You have the right to access, correct, delete, and obtain a copy of your personal data. Contact us at the email above.</p>
+
+  <h2>7. Cookies</h2>
+  <p>Vundii uses only essential session cookies required for authentication. We do not use advertising, tracking, or analytics cookies.</p>
+
+  <h2>8. Children's Privacy</h2>
+  <p>The Service is not directed to children under 18. We do not knowingly collect personal information from anyone under 18. If you believe a minor has provided us data, contact us and we will delete it.</p>
+
+  <h2>9. Changes to This Policy</h2>
+  <p>We may update this Privacy Policy. We will notify you of material changes by email or by posting a notice in the application. The effective date at the top of this page reflects the most recent update.</p>
+
+  <h2>10. Contact</h2>
+  <p>Questions or requests regarding your privacy: <a href="mailto:vundii.support@gmail.com">vundii.support@gmail.com</a></p>
+</main>
+
+<footer>
+  <p>© 2026 [LLC NAME] · <a href="/terms.html">Terms</a> · <a href="/privacy.html">Privacy</a> · <a href="mailto:vundii.support@gmail.com">Contact</a></p>
+</footer>
+
+</body>
+</html>
