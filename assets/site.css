@@ -1,0 +1,194 @@
+/* Vundii shared styles — guide + legal pages (landing keeps its own inline CSS) */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --sand:   #faf8f5;
+  --sand-2: #f2efe9;
+  --sand-3: #e8e3d9;
+  --text-1: #1a1714;
+  --text-2: #4a443c;
+  --text-3: #7d7167;
+  --teal:   #0e7490;
+  --teal-d: #0a5e73;
+  --teal-l: #e0f2f7;
+  --green:  #16a34a;
+  --radius: 12px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--sand);
+  color: var(--text-1);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+/* ── Nav (matches landing) ── */
+nav.site-nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(250, 248, 245, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--sand-3);
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.nav-logo { font-size: 21px; font-weight: 800; color: var(--teal); text-decoration: none; letter-spacing: -0.5px; }
+.nav-logo span { color: var(--text-1); }
+.nav-links { display: flex; align-items: center; gap: 28px; }
+.nav-links a { font-size: 14px; font-weight: 500; color: var(--text-2); text-decoration: none; transition: color 0.15s; }
+.nav-links a:hover, .nav-links a.active { color: var(--text-1); }
+.nav-links a.active { font-weight: 600; color: var(--teal); }
+.nav-cta { display: flex; align-items: center; gap: 12px; }
+.nav-signin { font-size: 14px; font-weight: 500; color: var(--text-2); text-decoration: none; }
+.nav-signin:hover { color: var(--text-1); }
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--teal); color: #fff;
+  font-size: 14px; font-weight: 600; padding: 9px 20px;
+  border-radius: 9px; border: none; cursor: pointer;
+  text-decoration: none; transition: background 0.18s; white-space: nowrap;
+}
+.btn-primary:hover { background: var(--teal-d); }
+
+@media (max-width: 640px) {
+  .nav-links { display: none; }
+}
+
+/* ── Article layout (concept + legal pages) ── */
+main.article { max-width: 760px; margin: 0 auto; padding: 56px 24px 80px; }
+
+.eyebrow {
+  display: inline-block; font-size: 12px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--teal); background: var(--teal-l);
+  padding: 4px 12px; border-radius: 20px; margin-bottom: 18px;
+  text-decoration: none;
+}
+a.eyebrow:hover { background: var(--sand-3); }
+
+main.article h1 {
+  font-size: clamp(30px, 4.5vw, 42px); font-weight: 800;
+  line-height: 1.15; letter-spacing: -1px; margin-bottom: 14px;
+}
+.lede { font-size: 18px; color: var(--text-2); margin-bottom: 36px; }
+
+main.article h2 {
+  font-size: 22px; font-weight: 700; letter-spacing: -0.3px;
+  margin: 44px 0 12px;
+}
+main.article h3 { font-size: 17px; font-weight: 600; margin: 28px 0 8px; }
+main.article p { margin-bottom: 16px; color: var(--text-2); }
+main.article li { margin-bottom: 10px; color: var(--text-2); }
+main.article ul, main.article ol { padding-left: 24px; margin-bottom: 16px; }
+main.article strong { color: var(--text-1); }
+main.article a { color: var(--teal); text-decoration: none; }
+main.article a:hover { text-decoration: underline; }
+
+main.article table { width: 100%; border-collapse: collapse; margin: 8px 0 20px; font-size: 14px; }
+main.article th { text-align: left; padding: 10px 12px; background: var(--sand-2); border: 1px solid var(--sand-3); color: var(--text-1); }
+main.article td { padding: 10px 12px; border: 1px solid var(--sand-3); vertical-align: top; color: var(--text-2); }
+
+/* Plain-English callout at the top of every concept page */
+.plain {
+  background: var(--teal-l); border: 1px solid #b9e2ee;
+  border-radius: var(--radius); padding: 20px 24px; margin-bottom: 36px;
+}
+.plain .plain-label {
+  font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--teal-d); margin-bottom: 6px;
+}
+.plain p { color: var(--text-1); font-size: 16px; margin: 0; }
+
+/* Tip / example boxes */
+.example {
+  background: var(--sand-2); border-left: 3px solid var(--teal);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 16px 20px; margin: 20px 0;
+}
+.example p { margin: 0; font-size: 15px; }
+
+/* "Try it in Vundii" CTA band */
+.try-cta {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap;
+  background: var(--teal); border-radius: var(--radius);
+  padding: 22px 26px; margin: 48px 0 0;
+}
+.try-cta p { margin: 0; color: #fff; font-weight: 600; font-size: 16px; }
+.try-cta a {
+  background: #fff; color: var(--teal); font-weight: 600; font-size: 14px;
+  padding: 10px 20px; border-radius: 9px; text-decoration: none; white-space: nowrap;
+}
+.try-cta a:hover { background: var(--teal-l); text-decoration: none; }
+
+/* Prev / next pager */
+.pager {
+  display: flex; justify-content: space-between; gap: 16px;
+  margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--sand-3);
+}
+.pager a {
+  font-size: 14px; font-weight: 600; color: var(--teal);
+  text-decoration: none; max-width: 46%;
+}
+.pager a:hover { text-decoration: underline; }
+.pager .pager-label { display: block; font-size: 12px; font-weight: 500; color: var(--text-3); margin-bottom: 2px; }
+
+/* ── Guide home cards ── */
+.guide-hero { padding: 64px 0 8px; text-align: center; }
+.guide-hero h1 { font-size: clamp(32px, 5vw, 48px); font-weight: 800; letter-spacing: -1px; margin-bottom: 14px; }
+.guide-hero p { font-size: 18px; color: var(--text-2); max-width: 620px; margin: 0 auto; }
+
+.start-card {
+  display: block; background: var(--teal); color: #fff;
+  border-radius: var(--radius); padding: 28px 32px;
+  margin: 40px 0 12px; text-decoration: none;
+  transition: background 0.18s;
+}
+.start-card:hover { background: var(--teal-d); }
+.start-card .start-label { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.85; margin-bottom: 6px; }
+.start-card h2 { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+.start-card p { font-size: 15px; opacity: 0.92; margin: 0; }
+
+.card-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px; margin: 28px 0 48px;
+}
+.concept-card {
+  display: block; background: #fff; border: 1px solid var(--sand-3);
+  border-radius: var(--radius); padding: 24px 26px;
+  text-decoration: none; color: inherit;
+  transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+}
+.concept-card:hover {
+  border-color: var(--teal); transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(26, 23, 20, 0.06);
+}
+.concept-card .num {
+  font-size: 12px; font-weight: 700; color: var(--teal);
+  letter-spacing: 0.06em; margin-bottom: 8px;
+}
+.concept-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; color: var(--text-1); }
+.concept-card p { font-size: 14px; color: var(--text-2); margin: 0; line-height: 1.55; }
+
+/* ── Glossary ── */
+.term { padding: 20px 0; border-bottom: 1px solid var(--sand-3); }
+.term:last-child { border-bottom: none; }
+.term h3 { font-size: 16px; font-weight: 700; margin: 0 0 6px; scroll-margin-top: 88px; }
+.term p { margin: 0; font-size: 15px; }
+
+/* ── Footer (matches landing tone) ── */
+footer.site-footer {
+  background: var(--text-1); color: #b3aca3;
+  padding: 40px 0 32px; margin-top: 72px; font-size: 13px;
+}
+.footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
+.footer-logo { font-size: 18px; font-weight: 800; color: #fff; text-decoration: none; letter-spacing: -0.5px; }
+.footer-links { display: flex; gap: 22px; flex-wrap: wrap; }
+.footer-links a { color: #b3aca3; text-decoration: none; }
+.footer-links a:hover { color: #fff; }
+.footer-disclaimer { font-size: 12px; line-height: 1.6; color: #8a827a; margin-top: 10px; }

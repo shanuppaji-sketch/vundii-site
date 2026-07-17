@@ -3,1303 +3,654 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vundii — Find your enough.</title>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <title>Vundii — Find Your Enough</title>
+  <meta name="description" content="Vundii helps you plan the retirement you actually want — not just the one the math allows. See your full financial picture, stress-test your plan, and retire with confidence." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="canonical" href="https://vundii.com/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Vundii — Find Your Enough" />
+  <meta property="og:description" content="Retirement planning with honest projections, tax strategy, Social Security timing, and stress tests — all in one place." />
+  <meta property="og:url" content="https://vundii.com/" />
+  <meta property="og:image" content="https://vundii.com/assets/dashboard.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --black:   #000000;
-      --dark:    #0a0a0c;
-      --carbon:  #111114;
-      --mid:     #1c1c22;
-      --muted:   #6e6e7a;
-      --white:   #ffffff;
-      --fg-1:    #F5F5F7;
-      --fg-2:    #C7C7CC;
-      --fg-3:    #98989D;
-      --blue:    #0071E3;
-      --blue-lt: #2997FF;
-      --blue-s:  rgba(0,113,227,0.15);
-      --green:   #30D158;
-      --warn:    #FF9F0A;
-      --danger:  #FF453A;
-      --border:  rgba(255,255,255,0.10);
-      --radius:  16px;
-      --font:    'Inter Tight', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-      --mono:    'SF Mono', 'Cascadia Code', 'Fira Code', monospace;
+      --sand:    #faf8f5;
+      --sand-2:  #f2efe9;
+      --sand-3:  #e8e3d9;
+      --text-1:  #1a1714;
+      --text-2:  #4a443c;
+      --text-3:  #7d7167;
+      --teal:    #0e7490;
+      --teal-d:  #0a5e73;
+      --teal-l:  #e0f2f7;
+      --green:   #16a34a;
+      --radius:  12px;
     }
 
     html { scroll-behavior: smooth; }
+
     body {
-      font-family: var(--font);
-      background: var(--black);
-      color: var(--fg-1);
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--sand);
+      color: var(--text-1);
+      line-height: 1.6;
       -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
     }
 
-    /* ── NAV ── */
+    /* ── Utility ── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--teal); color: #fff;
+      font-size: 15px; font-weight: 600; padding: 13px 28px;
+      border-radius: 9px; border: none; cursor: pointer;
+      text-decoration: none; transition: background 0.18s;
+      white-space: nowrap;
+    }
+    .btn-primary:hover { background: var(--teal-d); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: var(--teal);
+      font-size: 15px; font-weight: 600; padding: 12px 28px;
+      border-radius: 9px; border: 1.5px solid var(--teal);
+      cursor: pointer; text-decoration: none; transition: background 0.18s;
+      white-space: nowrap;
+    }
+    .btn-outline:hover { background: var(--teal-l); }
+
+    /* ── Nav ── */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(250, 248, 245, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--sand-3);
+    }
+    .nav-inner {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0 2.5rem; height: 52px;
-      background: rgba(0,0,0,0.80);
-      backdrop-filter: saturate(180%) blur(20px);
-      -webkit-backdrop-filter: saturate(180%) blur(20px);
-      border-bottom: 1px solid var(--border);
+      height: 64px;
     }
     .nav-logo {
-      display: flex; align-items: center; gap: 10px;
-      font-size: 1rem; font-weight: 600; letter-spacing: -0.02em;
-      color: var(--fg-1); text-decoration: none;
+      font-size: 21px; font-weight: 800; color: var(--teal);
+      text-decoration: none; letter-spacing: -0.5px;
     }
-    .nav-logo .ii { color: var(--blue-lt); }
-    nav ul { list-style: none; display: flex; gap: 2rem; }
-    nav ul a { color: var(--fg-3); font-size: 0.82rem; text-decoration: none; transition: color 0.2s; }
-    nav ul a:hover { color: var(--fg-1); }
-    .nav-cta {
-      font-size: 0.82rem; font-weight: 500;
-      padding: 0.38rem 1.1rem;
-      background: var(--blue); color: #fff;
-      border-radius: 9999px; text-decoration: none;
-      transition: background 0.2s, transform 0.15s;
+    .nav-logo span { color: var(--text-1); }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a {
+      font-size: 14px; font-weight: 500; color: var(--text-2);
+      text-decoration: none; transition: color 0.15s;
     }
-    .nav-cta:hover { background: #0077ED; transform: translateY(-1px); }
+    .nav-links a:hover { color: var(--text-1); }
+    .nav-cta { display: flex; align-items: center; gap: 12px; }
+    .nav-signin {
+      font-size: 14px; font-weight: 500; color: var(--text-2);
+      text-decoration: none; transition: color 0.15s;
+    }
+    .nav-signin:hover { color: var(--text-1); }
+    .nav-cta .btn-primary { font-size: 14px; padding: 9px 20px; }
 
-    /* ── HERO ── */
+    /* ── Hero ── */
     .hero {
-      min-height: 100vh;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center; padding: 8rem 2rem 5rem;
-      background:
-        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(0,113,227,0.12) 0%, transparent 65%),
-        radial-gradient(ellipse 50% 35% at 85% 90%, rgba(41,151,255,0.06) 0%, transparent 55%),
-        var(--black);
-      position: relative; overflow: hidden;
+      padding: 80px 0 60px;
     }
-    .hero-mark {
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 2rem; color: var(--fg-1);
-      animation: fadeUp 0.5s ease both;
+    .hero-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: center;
     }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      font-size: 0.76rem; font-weight: 500; letter-spacing: 0.04em;
-      color: var(--blue-lt); background: rgba(41,151,255,0.10);
-      border: 1px solid rgba(41,151,255,0.22); border-radius: 9999px;
-      padding: 0.32rem 0.9rem; margin-bottom: 1.4rem;
-      animation: fadeUp 0.5s 0.05s ease both;
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.08em;
+      color: var(--teal); text-transform: uppercase;
+      background: var(--teal-l); padding: 4px 12px; border-radius: 20px;
+      margin-bottom: 20px;
     }
     .hero h1 {
-      font-size: clamp(2.8rem, 7.5vw, 5.6rem);
-      font-weight: 600; letter-spacing: -0.04em; line-height: 1.02;
-      margin-bottom: 0.4rem;
-      animation: fadeUp 0.55s 0.1s ease both;
+      font-size: clamp(38px, 5vw, 56px);
+      font-weight: 800; line-height: 1.1;
+      letter-spacing: -1.5px; color: var(--text-1);
+      margin-bottom: 20px;
     }
-    .hero h1 .line1 { color: var(--fg-1); }
-    .hero h1 .line2 { color: var(--blue-lt); }
+    .hero h1 em { color: var(--teal); font-style: normal; }
     .hero-sub {
-      font-size: clamp(1rem, 2.2vw, 1.2rem);
-      color: var(--fg-3); max-width: 560px;
-      line-height: 1.7; margin: 1.2rem auto 2.4rem;
-      font-weight: 400;
-      animation: fadeUp 0.55s 0.2s ease both;
+      font-size: 18px; color: var(--text-2); line-height: 1.65;
+      margin-bottom: 36px; max-width: 480px;
     }
-    .hero-actions {
-      display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
-      animation: fadeUp 0.55s 0.28s ease both;
+    .hero-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .hero-note {
+      margin-top: 16px; font-size: 13px; color: var(--text-3);
     }
-    .btn-primary {
-      padding: 0.75rem 1.9rem; font-size: 0.95rem; font-weight: 500;
-      background: var(--blue); color: #fff;
-      border-radius: 9999px; text-decoration: none;
-      transition: background 0.2s, transform 0.15s;
+    .hero-image-wrap {
+      border-radius: 20px; overflow: hidden;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.12);
+      aspect-ratio: 4/3;
     }
-    .btn-primary:hover { background: #0077ED; transform: translateY(-2px); }
-    .btn-ghost {
-      padding: 0.75rem 1.9rem; font-size: 0.95rem; font-weight: 500;
-      background: rgba(255,255,255,0.07); color: var(--fg-1);
-      border: 1px solid rgba(255,255,255,0.14); border-radius: 9999px; text-decoration: none;
-      transition: background 0.2s, transform 0.15s;
+    .hero-image-wrap img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
     }
-    .btn-ghost:hover { background: rgba(255,255,255,0.12); transform: translateY(-2px); }
 
-    /* ── HERO WINDOW ── */
-    .hero-window {
-      margin-top: 4.5rem; width: 100%; max-width: 880px;
-      background: var(--carbon); border-radius: 14px;
-      border: 1px solid var(--border);
-      box-shadow: 0 40px 100px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.04);
-      overflow: hidden; position: relative; z-index: 1;
-      animation: fadeUp 0.65s 0.38s ease both;
-    }
-    .hero-window-bar {
-      background: var(--mid); padding: 0.65rem 1rem;
-      display: flex; align-items: center; gap: 0.5rem;
-      border-bottom: 1px solid var(--border);
-    }
-    .wdot { width: 12px; height: 12px; border-radius: 50%; }
-    .wdot.r { background: #ff5f57; } .wdot.y { background: #ffbd2e; } .wdot.g { background: #28c840; }
-    .wbar-title { font-size: 0.76rem; color: var(--muted); margin-left: 0.5rem; }
-    .wbar-logo { margin-left: auto; display: flex; align-items: center; gap: 6px; color: var(--fg-2); font-size: 0.8rem; font-weight: 600; letter-spacing: -0.01em; }
-    .wbar-logo .ii { color: var(--blue-lt); }
-
-    .hero-window-body { display: grid; grid-template-columns: 200px 1fr; min-height: 360px; }
-    .hw-sidebar {
-      background: rgba(255,255,255,0.02); border-right: 1px solid var(--border);
-      padding: 1rem 0.75rem; display: flex; flex-direction: column; gap: 0.15rem;
-    }
-    .hw-sidebar-label {
-      font-size: 0.62rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--muted); padding: 0.4rem 0.75rem 0.2rem; margin-top: 0.5rem;
-    }
-    .hw-nav-item {
-      padding: 0.45rem 0.75rem; border-radius: 7px;
-      font-size: 0.76rem; color: var(--fg-3); cursor: default;
-      display: flex; align-items: center; gap: 0.55rem;
-    }
-    .hw-nav-item.active { background: var(--blue); color: #fff; }
-    .hw-content { padding: 1.4rem; }
-    .hw-title { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
-    .fan-chart { position: relative; height: 190px; margin-bottom: 1rem; }
-    .fan-chart svg { width: 100%; height: 100%; }
-    .hw-stats { display: flex; gap: 0.75rem; }
-    .hw-stat { flex: 1; background: rgba(255,255,255,0.04); border-radius: 10px; padding: 0.7rem; }
-    .hw-stat-label { font-size: 0.62rem; color: var(--muted); margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.05em; }
-    .hw-stat-value { font-size: 1.15rem; font-weight: 600; letter-spacing: -0.03em; }
-    .hw-stat-value.green { color: var(--green); }
-    .hw-stat-value.blue  { color: var(--blue-lt); }
-    .hw-stat-value.warn  { color: var(--warn); }
-
-    /* ── TRUST BAR ── */
+    /* ── Trust bar ── */
     .trust-bar {
-      background: var(--carbon); padding: 2.5rem 2rem;
-      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      background: var(--sand-2);
+      border-top: 1px solid var(--sand-3);
+      border-bottom: 1px solid var(--sand-3);
+      padding: 20px 0;
     }
     .trust-inner {
-      max-width: 900px; margin: 0 auto;
-      display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2rem;
-    }
-    .trust-item { text-align: center; }
-    .trust-number {
-      font-size: 2.1rem; font-weight: 600; letter-spacing: -0.05em;
-      color: var(--fg-1);
-    }
-    .trust-number span { color: var(--blue-lt); }
-    .trust-label { font-size: 0.76rem; color: var(--muted); margin-top: 0.2rem; }
-
-    /* ── SECTIONS ── */
-    section { padding: 7rem 2rem; }
-    .section-inner { max-width: 980px; margin: 0 auto; }
-    .eyebrow {
-      font-size: 0.74rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--blue-lt); margin-bottom: 0.8rem;
-    }
-    .section-title {
-      font-size: clamp(1.9rem, 4.5vw, 3rem); font-weight: 600;
-      letter-spacing: -0.03em; line-height: 1.08; margin-bottom: 1rem;
-    }
-    .section-sub { font-size: 1rem; color: var(--fg-3); max-width: 520px; line-height: 1.7; font-weight: 400; }
-
-    /* ── PRIVATE ── */
-    .private { background: var(--dark); }
-    .private-split {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; margin-top: 4rem;
-    }
-    @media (max-width: 720px) { .private-split { grid-template-columns: 1fr; gap: 3rem; } }
-    .private-points { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 2rem; }
-    .pp {
-      display: flex; gap: 1rem; align-items: flex-start;
-      padding: 1.2rem; background: var(--carbon); border-radius: 12px;
-      border: 1px solid var(--border);
-    }
-    .pp-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 0.1rem; }
-    .pp h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.3rem; }
-    .pp p  { font-size: 0.82rem; color: var(--fg-3); line-height: 1.6; }
-
-    .privacy-visual {
-      background: var(--carbon); border-radius: var(--radius);
-      border: 1px solid var(--border); padding: 1.75rem;
-      display: flex; flex-direction: column; gap: 0.9rem;
-    }
-    .pv-title { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
-    .pv-path {
-      display: flex; align-items: center; gap: 0.5rem;
-      font-family: var(--mono); font-size: 0.78rem; color: rgba(255,255,255,0.35);
-    }
-    .pv-path .highlight { color: var(--blue-lt); }
-    .pv-row {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0.6rem 0.85rem; border-radius: 9px; background: rgba(255,255,255,0.03);
-    }
-    .pv-row-label { font-size: 0.8rem; color: var(--fg-3); }
-    .pv-badge { font-size: 0.68rem; font-weight: 600; padding: 0.2rem 0.65rem; border-radius: 9999px; }
-    .badge-yes  { background: rgba(48,209,88,0.15);   color: var(--green); }
-    .badge-no   { background: rgba(255,69,58,0.15);   color: var(--danger); }
-    .badge-enc  { background: rgba(41,151,255,0.15);  color: var(--blue-lt); }
-
-    /* ── SIMULATION ── */
-    .simulation { background: var(--black); }
-    .sim-cards {
-      margin-top: 4rem; display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem;
-    }
-    @media (max-width: 720px) { .sim-cards { grid-template-columns: 1fr; } }
-    .sim-card {
-      background: var(--carbon); border-radius: var(--radius);
-      padding: 1.75rem; border: 1px solid var(--border);
-      transition: transform 0.25s, border-color 0.25s;
-    }
-    .sim-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.18); }
-    .sim-card-icon { font-size: 1.8rem; margin-bottom: 1.1rem; }
-    .sim-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.55rem; letter-spacing: -0.01em; }
-    .sim-card p  { font-size: 0.85rem; color: var(--fg-3); line-height: 1.65; }
-    .sim-card-num {
-      margin-top: 1.4rem; font-size: 1.8rem; font-weight: 600; letter-spacing: -0.04em;
-      color: var(--blue-lt);
-    }
-    .sim-card-numlabel { font-size: 0.7rem; color: var(--muted); margin-top: 0.1rem; }
-
-    /* ── FEATURES ── */
-    .features { background: var(--dark); }
-    .feat-grid {
-      margin-top: 4rem;
-      display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem;
-    }
-    @media (max-width: 800px) { .feat-grid { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 520px) { .feat-grid { grid-template-columns: 1fr; } }
-    .feat-card {
-      background: var(--carbon); border-radius: var(--radius);
-      padding: 1.6rem; border: 1px solid var(--border);
-      transition: border-color 0.25s, transform 0.25s;
-    }
-    .feat-card:hover { border-color: rgba(255,255,255,0.18); transform: translateY(-3px); }
-    .feat-card.new { border-color: rgba(41,151,255,0.25); }
-    .feat-card.new:hover { border-color: rgba(41,151,255,0.45); }
-    .feat-icon { font-size: 1.5rem; margin-bottom: 0.9rem; }
-    .feat-card h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.45rem; letter-spacing: -0.01em; }
-    .feat-card p  { font-size: 0.83rem; color: var(--fg-3); line-height: 1.65; }
-    .feat-chips { margin-top: 0.9rem; display: flex; flex-wrap: wrap; gap: 0.35rem; }
-    .chip {
-      font-size: 0.7rem; padding: 0.2rem 0.6rem;
-      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 6px; color: var(--fg-3);
-    }
-    .chip.new { background: rgba(41,151,255,0.10); border-color: rgba(41,151,255,0.25); color: var(--blue-lt); }
-    .new-badge {
-      display: inline-block; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.05em;
-      background: var(--blue); color: #fff; border-radius: 4px; padding: 0.1rem 0.45rem;
-      margin-left: 0.5rem; vertical-align: middle; text-transform: uppercase;
-    }
-
-    /* ── PAGES ── */
-    .pages { background: var(--black); }
-    .pages-grid {
-      margin-top: 4rem;
-      display: grid; grid-template-columns: repeat(3,1fr); gap: 1px;
-      background: var(--border); border-radius: var(--radius);
-      overflow: hidden; border: 1px solid var(--border);
-    }
-    @media (max-width: 640px) { .pages-grid { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 400px) { .pages-grid { grid-template-columns: 1fr; } }
-    .page-item {
-      background: var(--carbon); padding: 1.5rem 1.35rem;
-      transition: background 0.2s;
-    }
-    .page-item:hover { background: var(--mid); }
-    .page-item.is-new { background: rgba(0,113,227,0.06); }
-    .page-item.is-new:hover { background: rgba(0,113,227,0.10); }
-    .page-num { font-size: 0.66rem; font-weight: 600; color: var(--muted); margin-bottom: 0.45rem; font-family: var(--mono); }
-    .page-icon { font-size: 1.35rem; margin-bottom: 0.6rem; }
-    .page-item h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.35rem; }
-    .page-item p  { font-size: 0.78rem; color: var(--fg-3); line-height: 1.55; }
-
-    /* ── SS & TAX ── */
-    .ss-tax { background: var(--dark); }
-    .ss-tax-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 4rem; }
-    @media (max-width: 640px) { .ss-tax-grid { grid-template-columns: 1fr; } }
-    .ss-card {
-      background: var(--carbon); border-radius: var(--radius);
-      overflow: hidden; border: 1px solid var(--border);
-    }
-    .ss-card-top { padding: 1.75rem; }
-    .ss-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.55rem; letter-spacing: -0.02em; }
-    .ss-card p  { font-size: 0.85rem; color: var(--fg-3); line-height: 1.65; }
-    .ss-visual {
-      padding: 1.4rem; background: rgba(255,255,255,0.02);
-      border-top: 1px solid var(--border);
-    }
-    .ss-visual-label { font-size: 0.66rem; color: var(--muted); margin-bottom: 0.7rem; text-transform: uppercase; letter-spacing: 0.07em; }
-    .ss-bar-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.6rem; }
-    .ss-bar-label { font-size: 0.73rem; color: var(--muted); width: 28px; text-align: right; font-family: var(--mono); }
-    .ss-bar-track { flex: 1; background: rgba(255,255,255,0.06); border-radius: 4px; height: 7px; overflow: hidden; }
-    .ss-bar-fill  { height: 100%; border-radius: 4px; background: var(--blue-lt); }
-    .ss-bar-val   { font-size: 0.72rem; color: var(--fg-3); font-family: var(--mono); width: 55px; text-align: right; }
-    .roth-rows { display: flex; flex-direction: column; gap: 0.5rem; }
-    .roth-row {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0.55rem 0.75rem; border-radius: 8px; background: rgba(255,255,255,0.03);
-    }
-    .roth-row-label { font-size: 0.78rem; color: var(--fg-3); }
-    .roth-row-val   { font-size: 0.82rem; font-weight: 600; color: var(--blue-lt); font-family: var(--mono); }
-
-    /* ── WITHDRAWAL ── */
-    .withdrawal { background: var(--black); }
-    .wd-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; margin-top: 4rem; }
-    @media (max-width: 720px) { .wd-grid { grid-template-columns: 1fr; gap: 3rem; } }
-    .wd-points { display: flex; flex-direction: column; gap: 1.2rem; }
-    .wd-point { display: flex; gap: 1rem; align-items: flex-start; }
-    .wd-point-icon { font-size: 1.2rem; flex-shrink: 0; }
-    .wd-point h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.3rem; }
-    .wd-point p  { font-size: 0.82rem; color: var(--fg-3); line-height: 1.6; }
-
-    .order-visual {
-      background: var(--carbon); border-radius: var(--radius);
-      border: 1px solid var(--border); overflow: hidden;
-    }
-    .order-visual-top {
-      padding: 0.85rem 1.25rem; border-bottom: 1px solid var(--border);
-      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.07em;
-      text-transform: uppercase; color: var(--muted);
-    }
-    .order-rows { padding: 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
-    .order-row {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0.65rem 0.9rem; border-radius: 9px;
-      border: 1px solid var(--border);
-    }
-    .order-row.active { background: rgba(41,151,255,0.08); border-color: rgba(41,151,255,0.25); }
-    .order-left { display: flex; align-items: center; gap: 0.65rem; }
-    .order-num { width: 20px; height: 20px; border-radius: 50%; background: rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: center; font-size: 0.68rem; font-weight: 600; color: var(--muted); }
-    .order-row.active .order-num { background: var(--blue); color: #fff; }
-    .order-name { font-size: 0.82rem; font-weight: 500; color: var(--fg-1); }
-    .order-type { font-size: 0.68rem; color: var(--muted); margin-top: 0.1rem; }
-    .order-pct { font-size: 0.82rem; font-weight: 600; color: var(--blue-lt); font-family: var(--mono); }
-
-    /* ── AI CHAT ── */
-    .ai-section { background: var(--dark); }
-    .ai-split { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; margin-top: 4rem; }
-    @media (max-width: 720px) { .ai-split { grid-template-columns: 1fr; gap: 3rem; } }
-    .chat-window {
-      background: var(--carbon); border-radius: var(--radius);
-      border: 1px solid var(--border); overflow: hidden;
-    }
-    .chat-top {
-      padding: 0.7rem 1.2rem;
-      background: var(--mid); border-bottom: 1px solid var(--border);
-      font-size: 0.76rem; color: var(--muted); display: flex; align-items: center; gap: 0.6rem;
-    }
-    .chat-indicator { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 6px var(--green); }
-    .chat-messages { padding: 1.2rem; display: flex; flex-direction: column; gap: 0.85rem; }
-    .chat-msg { max-width: 86%; }
-    .chat-msg.user { align-self: flex-end; }
-    .chat-bubble {
-      padding: 0.65rem 0.95rem; border-radius: 13px;
-      font-size: 0.81rem; line-height: 1.55;
-    }
-    .chat-msg.user .chat-bubble {
-      background: var(--blue); color: #fff;
-      border-bottom-right-radius: 4px;
-    }
-    .chat-msg.ai .chat-bubble {
-      background: var(--mid); border: 1px solid var(--border);
-      color: var(--fg-2); border-bottom-left-radius: 4px;
-    }
-    .chat-sender { font-size: 0.63rem; color: var(--muted); margin-bottom: 0.28rem; }
-    .chat-msg.user .chat-sender { text-align: right; }
-    .ai-points { display: flex; flex-direction: column; gap: 1.2rem; }
-    .ai-point { display: flex; gap: 1rem; align-items: flex-start; }
-    .ai-point-icon { font-size: 1.2rem; flex-shrink: 0; }
-    .ai-point h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.3rem; }
-    .ai-point p  { font-size: 0.82rem; color: var(--fg-3); line-height: 1.6; }
-
-    /* ── INSTALL ── */
-    .install { background: var(--carbon); }
-    .install-split { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; margin-top: 4rem; }
-    @media (max-width: 720px) { .install-split { grid-template-columns: 1fr; } }
-    .install-steps { display: flex; flex-direction: column; }
-    .install-step {
-      display: flex; gap: 1.5rem; padding: 1.6rem 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .install-step:last-child { border-bottom: none; }
-    .step-num {
-      flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%;
-      background: rgba(41,151,255,0.12); border: 1px solid rgba(41,151,255,0.3);
       display: flex; align-items: center; justify-content: center;
-      font-size: 0.8rem; font-weight: 600; color: var(--blue-lt);
+      gap: 40px; flex-wrap: wrap;
     }
-    .step-body h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.4rem; }
-    .step-body p  { font-size: 0.82rem; color: var(--fg-3); line-height: 1.6; margin-bottom: 0.7rem; }
-    .code-block {
-      background: var(--black); border: 1px solid var(--border);
-      border-radius: 10px; padding: 0.8rem 1rem;
-      font-family: var(--mono); font-size: 0.76rem; color: var(--fg-3);
-      line-height: 1.85; overflow-x: auto;
+    .trust-item {
+      font-size: 13px; font-weight: 500; color: var(--text-3);
+      display: flex; align-items: center; gap: 8px;
     }
-    .code-block .cmd  { color: var(--blue-lt); }
-    .code-block .flag { color: var(--green); }
-    .code-block .com  { color: var(--muted); }
+    .trust-item svg { flex-shrink: 0; }
 
-    .requirements-card {
-      background: var(--dark); border-radius: var(--radius);
-      border: 1px solid var(--border); overflow: hidden;
+    /* ── Section shared ── */
+    section { padding: 88px 0; }
+    .section-label {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--teal);
+      margin-bottom: 12px;
     }
-    .req-header {
-      padding: 1.1rem 1.4rem; border-bottom: 1px solid var(--border);
-      font-size: 0.8rem; font-weight: 600; color: var(--fg-2);
+    .section-heading {
+      font-size: clamp(28px, 3.5vw, 40px);
+      font-weight: 800; letter-spacing: -1px; line-height: 1.15;
+      color: var(--text-1); margin-bottom: 16px;
     }
-    .req-row {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0.82rem 1.4rem; border-bottom: 1px solid rgba(255,255,255,0.04);
+    .section-sub {
+      font-size: 17px; color: var(--text-2); line-height: 1.65;
+      max-width: 560px;
     }
-    .req-row:last-child { border-bottom: none; }
-    .req-item { font-size: 0.82rem; color: var(--fg-3); }
-    .req-val  { font-size: 0.8rem; font-weight: 500; }
-    .req-val.ok  { color: var(--green); }
-    .req-val.opt { color: var(--muted); }
+    .section-sub.centered { margin: 0 auto; text-align: center; }
+    .centered-head { text-align: center; }
 
-    .launch-card {
-      margin-top: 1.25rem; background: var(--dark); border-radius: var(--radius);
-      border: 1px solid var(--border); padding: 1.4rem;
+    /* ── Features ── */
+    .features-bg { background: #fff; }
+    .features-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 32px; margin-top: 56px;
     }
-    .launch-card h4 { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.35rem; }
-    .launch-card p  { font-size: 0.8rem; color: var(--fg-3); margin-bottom: 0.9rem; line-height: 1.6; }
-    .app-icon-row {
-      display: flex; align-items: center; gap: 0.75rem;
-      padding: 0.8rem 1rem; background: var(--mid); border-radius: 10px;
+    .feature-card {
+      background: var(--sand); border: 1px solid var(--sand-3);
+      border-radius: var(--radius); padding: 28px;
     }
-    .app-icon-box {
-      width: 40px; height: 40px; border-radius: 9px;
-      background: #1D1D1F; display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; color: #fff;
+    .feature-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: var(--teal-l); display: flex; align-items: center; justify-content: center;
+      margin-bottom: 18px;
     }
-    .app-icon-row-info h5 { font-size: 0.85rem; font-weight: 600; }
-    .app-icon-row-info p  { font-size: 0.73rem; color: var(--muted); }
+    .feature-card h3 {
+      font-size: 16px; font-weight: 700; color: var(--text-1);
+      margin-bottom: 10px;
+    }
+    .feature-card p { font-size: 14px; color: var(--text-2); line-height: 1.65; }
 
-    /* ── FOOTER ── */
+    /* ── Human section ── */
+    .human-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 72px; align-items: center;
+    }
+    .human-image {
+      border-radius: 20px; overflow: hidden;
+      box-shadow: 0 20px 56px rgba(0,0,0,0.1);
+      aspect-ratio: 4/3;
+    }
+    .human-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .quote-card {
+      background: var(--teal-l); border-left: 3px solid var(--teal);
+      border-radius: 10px; padding: 20px 22px; margin-top: 32px;
+    }
+    .quote-text { font-size: 15px; color: var(--text-2); font-style: italic; line-height: 1.6; }
+    .quote-author { margin-top: 10px; font-size: 13px; font-weight: 600; color: var(--teal); }
+
+    /* ── Steps ── */
+    .steps-bg { background: var(--sand-2); }
+    .steps-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 40px; margin-top: 56px;
+    }
+    .step { text-align: center; }
+    .step-number {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--teal); color: #fff;
+      font-size: 18px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+    }
+    .step h3 { font-size: 17px; font-weight: 700; margin-bottom: 10px; color: var(--text-1); }
+    .step p { font-size: 14px; color: var(--text-2); line-height: 1.65; }
+
+    /* ── App screenshot ── */
+    .screenshot-wrap {
+      margin-top: 56px; border-radius: 16px; overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.14);
+      border: 1px solid var(--sand-3);
+    }
+    .screenshot-bar {
+      background: #e8e3d9; padding: 10px 16px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot-r { background: #fc6058; }
+    .dot-y { background: #fec02f; }
+    .dot-g { background: #2aca3e; }
+    .screenshot-url {
+      flex: 1; background: #fff; border-radius: 5px;
+      font-size: 12px; color: var(--text-3); padding: 3px 10px;
+      margin-left: 8px; font-family: monospace;
+    }
+    .screenshot-body { background: #0f172a; }
+    .screenshot-body img { width: 100%; display: block; }
+
+    /* ── Pricing teaser ── */
+    .pricing-section { background: #fff; }
+    .pricing-card {
+      max-width: 480px; margin: 48px auto 0;
+      background: var(--sand); border: 1.5px solid var(--sand-3);
+      border-radius: 16px; padding: 36px;
+      text-align: center;
+    }
+    .pricing-card .badge {
+      display: inline-block;
+      background: var(--teal-l); color: var(--teal);
+      font-size: 12px; font-weight: 600; padding: 3px 10px;
+      border-radius: 20px; margin-bottom: 20px;
+    }
+    .price { font-size: 48px; font-weight: 800; color: var(--text-1); letter-spacing: -2px; }
+    .price sup { font-size: 24px; letter-spacing: 0; vertical-align: super; }
+    .price sub { font-size: 16px; font-weight: 500; color: var(--text-3); letter-spacing: 0; vertical-align: baseline; }
+    .price-note { font-size: 14px; color: var(--text-3); margin: 8px 0 24px; }
+    .pricing-features { list-style: none; text-align: left; margin-bottom: 28px; }
+    .pricing-features li {
+      font-size: 14px; color: var(--text-2);
+      padding: 7px 0; border-bottom: 1px solid var(--sand-3);
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .pricing-features li:last-child { border-bottom: none; }
+    .check { color: var(--green); flex-shrink: 0; margin-top: 2px; }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: var(--teal);
+      padding: 88px 0;
+      text-align: center;
+    }
+    .cta-section h2 {
+      font-size: clamp(28px, 3.5vw, 42px);
+      font-weight: 800; color: #fff; letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+    .cta-section p {
+      font-size: 17px; color: rgba(255,255,255,0.8);
+      max-width: 480px; margin: 0 auto 36px;
+    }
+    .cta-section .btn-primary {
+      background: #fff; color: var(--teal);
+      font-size: 16px; padding: 14px 32px;
+    }
+    .cta-section .btn-primary:hover { background: var(--sand-2); }
+    .cta-note { margin-top: 14px; font-size: 13px; color: rgba(255,255,255,0.65); }
+
+    /* ── Footer ── */
     footer {
-      background: var(--black); border-top: 1px solid var(--border);
-      padding: 4rem 2rem;
+      background: var(--text-1);
+      padding: 48px 0;
+      color: #9ca3af;
     }
-    .footer-inner { max-width: 980px; margin: 0 auto; }
-    .footer-top {
-      display: flex; justify-content: space-between; align-items: flex-start;
-      flex-wrap: wrap; gap: 2rem; padding-bottom: 3rem;
-      border-bottom: 1px solid var(--border);
+    .footer-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 20px;
     }
-    .footer-brand { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.65rem; }
-    .footer-brand-name { font-size: 1rem; font-weight: 600; letter-spacing: -0.02em; }
-    .footer-brand-name .ii { color: var(--blue-lt); }
-    .footer-tagline { font-size: 0.8rem; color: var(--muted); max-width: 220px; line-height: 1.6; }
-    .footer-links { display: flex; gap: 3rem; flex-wrap: wrap; }
-    .footer-col h5 { font-size: 0.74rem; font-weight: 600; color: var(--fg-3); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 0.85rem; }
-    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
-    .footer-col ul li { font-size: 0.82rem; color: var(--muted); }
-    .footer-col ul a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
-    .footer-col ul a:hover { color: var(--fg-1); }
-    .footer-bottom { padding-top: 2rem; font-size: 0.76rem; color: var(--muted); }
+    .footer-logo {
+      font-size: 18px; font-weight: 800; color: #fff;
+      text-decoration: none;
+    }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-links a {
+      font-size: 13px; color: #9ca3af; text-decoration: none;
+      transition: color 0.15s;
+    }
+    .footer-links a:hover { color: #fff; }
+    .footer-copy { font-size: 12px; color: #6b7280; }
+    .footer-disclaimer { font-size: 11px; color: #4b5563; line-height: 1.6; margin-top: 20px; padding-top: 20px; border-top: 1px solid #1f2937; }
 
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .hero { padding: 56px 0 40px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-image-wrap { order: -1; }
+      .features-grid { grid-template-columns: 1fr; }
+      .human-grid { grid-template-columns: 1fr; gap: 40px; }
+      .steps-grid { grid-template-columns: 1fr; gap: 32px; }
+      .nav-links { display: none; }
+      .trust-inner { gap: 20px; }
     }
-
-    /* ── DIVIDER ── */
-    .divider { width: 48px; height: 2px; background: var(--blue); border-radius: 2px; margin: 1.2rem 0; }
   </style>
 </head>
 <body>
 
-<!-- ── NAV ── -->
+<!-- ── Nav ── -->
 <nav>
-  <a href="#" class="nav-logo">
-    <svg width="22" height="22" viewBox="0 0 100 100" aria-hidden="true">
-      <circle cx="50" cy="28" r="7" fill="currentColor"/>
-      <rect x="24" y="42" width="52" height="40" rx="9" fill="none" stroke="currentColor" stroke-width="5"/>
-      <line x1="42" y1="54" x2="58" y2="54" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
-    </svg>
-    Vund<span class="ii">ii</span>
-  </a>
-  <ul>
-    <li><a href="#private">Privacy</a></li>
-    <li><a href="#simulation">Simulation</a></li>
-    <li><a href="#features">Features</a></li>
-    <li><a href="#pages">Pages</a></li>
-    <li><a href="#install">Install</a></li>
-  </ul>
-  <a href="https://github.com/shanuppaji-sketch/vundii-site/releases/download/v1.0.0/Vundii-arm64.zip" class="nav-cta">Download</a>
-</nav>
-
-<!-- ── HERO ── -->
-<section class="hero">
-  <div class="hero-mark">
-    <svg width="52" height="52" viewBox="0 0 100 100" aria-hidden="true">
-      <circle cx="50" cy="28" r="7" fill="currentColor"/>
-      <rect x="24" y="42" width="52" height="40" rx="9" fill="none" stroke="currentColor" stroke-width="5"/>
-      <line x1="42" y1="54" x2="58" y2="54" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
-    </svg>
-  </div>
-  <div class="hero-badge">Runs entirely on your Mac · no cloud, ever</div>
-  <h1>
-    <span class="line1">Find your enough.</span>
-  </h1>
-  <p class="hero-sub">Helping you buy the most precious commodity — your time — by giving you a comprehensive picture of your retirement readiness with Monte Carlo projections, tax-optimized withdrawals, Social Security coordination — your complete financial future, modeled in seconds, never leaving your machine.</p>
-  <div class="hero-actions">
-    <a href="https://github.com/shanuppaji-sketch/vundii-site/releases/download/v1.0.0/Vundii-arm64.zip" class="btn-primary">Download for Mac</a>
-    <a href="#simulation" class="btn-ghost">See how it works</a>
-  </div>
-
-  <div class="hero-window">
-    <div class="hero-window-bar">
-      <div class="wdot r"></div><div class="wdot y"></div><div class="wdot g"></div>
-      <span class="wbar-title">Projections</span>
-      <div class="wbar-logo">
-        <svg width="16" height="16" viewBox="0 0 100 100" aria-hidden="true">
-          <circle cx="50" cy="28" r="7" fill="currentColor"/>
-          <rect x="24" y="42" width="52" height="40" rx="9" fill="none" stroke="currentColor" stroke-width="5"/>
-          <line x1="42" y1="54" x2="58" y2="54" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
-        </svg>
-        Vund<span class="ii">ii</span>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">vundii</a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="/guide/">Guide</a>
+      </div>
+      <div class="nav-cta">
+        <a href="https://app.vundii.com" class="nav-signin">Sign in</a>
+        <a href="https://app.vundii.com" class="btn-primary">Start free trial</a>
       </div>
     </div>
-    <div class="hero-window-body">
-      <div class="hw-sidebar">
-        <div class="hw-sidebar-label">Analysis</div>
-        <div class="hw-nav-item">🏠 Dashboard</div>
-        <div class="hw-nav-item active">📈 Projections</div>
-        <div class="hw-nav-item">💵 Cash Flow</div>
-        <div class="hw-nav-item">📊 Balances</div>
-        <div class="hw-nav-item">🏦 Net Worth</div>
-        <div class="hw-nav-item">🔀 Scenarios</div>
-        <div class="hw-nav-item">⚡ Stress Test</div>
-        <div class="hw-nav-item">🏛️ Social Security</div>
-        <div class="hw-nav-item">🧾 Tax Planning</div>
-        <div class="hw-nav-item">📅 RMDs</div>
-        <div class="hw-nav-item">🗺️ State Tax</div>
-        <div class="hw-sidebar-label">Setup</div>
-        <div class="hw-nav-item">👤 My Plan</div>
-        <div class="hw-nav-item">💼 Accounts</div>
-        <div class="hw-nav-item">💸 Expenses</div>
-        <div class="hw-nav-item">↕ Withdrawal</div>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <span class="hero-eyebrow">Retirement planning, reimagined</span>
+        <h1>Find your<br><em>enough</em></h1>
+        <p class="hero-sub">
+          Vundii gives you a complete, honest picture of your retirement — projections, taxes, Social Security, withdrawals, and stress tests — all in one place.
+        </p>
+        <div class="hero-actions">
+          <a href="https://app.vundii.com" class="btn-primary">Start your free trial</a>
+          <a href="#how-it-works" class="btn-outline">See how it works</a>
+        </div>
+        <p class="hero-note">14-day free trial &nbsp;·&nbsp; No credit card required</p>
       </div>
-      <div class="hw-content">
-        <div class="hw-title">Monte Carlo · 6,000 paths · Ages 58–95 (joint)</div>
-        <div class="fan-chart">
-          <svg viewBox="0 0 560 190" preserveAspectRatio="none">
-            <defs>
-              <linearGradient id="band" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stop-color="#2997FF" stop-opacity="0.14"/>
-                <stop offset="100%" stop-color="#2997FF" stop-opacity="0.05"/>
-              </linearGradient>
-            </defs>
-            <path d="M0,178 Q140,158 280,98 Q420,38 560,8 L560,58 Q420,98 280,158 Q140,193 0,193 Z" fill="url(#band)"/>
-            <path d="M0,173 Q140,153 280,113 Q420,68 560,38 L560,53 Q420,83 280,128 Q140,168 0,183 Z" fill="rgba(41,151,255,0.10)"/>
-            <path d="M0,176 Q140,155 280,120 Q420,75 560,45" fill="none" stroke="#2997FF" stroke-width="2.5" stroke-linecap="round"/>
-            <path d="M0,178 Q140,159 280,126 Q420,84 560,56" fill="none" stroke="rgba(48,209,88,0.6)" stroke-width="1.5" stroke-dasharray="5,4" stroke-linecap="round"/>
-            <line x1="0" y1="188" x2="560" y2="188" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-            <text x="4"   y="188" font-size="9" fill="rgba(255,255,255,0.28)" font-family="sans-serif">58</text>
-            <text x="130" y="188" font-size="9" fill="rgba(255,255,255,0.28)" font-family="sans-serif">67</text>
-            <text x="265" y="188" font-size="9" fill="rgba(255,255,255,0.28)" font-family="sans-serif">75</text>
-            <text x="395" y="188" font-size="9" fill="rgba(255,255,255,0.28)" font-family="sans-serif">83</text>
-            <text x="528" y="188" font-size="9" fill="rgba(255,255,255,0.28)" font-family="sans-serif">95</text>
-          </svg>
-        </div>
-        <div class="hw-stats">
-          <div class="hw-stat">
-            <div class="hw-stat-label">Success Rate</div>
-            <div class="hw-stat-value green">87.1%</div>
-          </div>
-          <div class="hw-stat">
-            <div class="hw-stat-label">Median at 90</div>
-            <div class="hw-stat-value blue">$1.24M</div>
-          </div>
-          <div class="hw-stat">
-            <div class="hw-stat-label">Guardrail Rate</div>
-            <div class="hw-stat-value warn">91.4%</div>
-          </div>
-          <div class="hw-stat">
-            <div class="hw-stat-label">Plan</div>
-            <div class="hw-stat-value blue" style="font-size:0.9rem">Base Case</div>
-          </div>
-        </div>
+      <div class="hero-image-wrap">
+        <img
+          src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=900&auto=format&fit=crop&q=80"
+          alt="Couple reviewing their financial plan together"
+          loading="eager"
+        />
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── TRUST BAR ── -->
+<!-- ── Trust bar ── -->
 <div class="trust-bar">
-  <div class="trust-inner">
-    <div class="trust-item">
-      <div class="trust-number"><span>6,000</span></div>
-      <div class="trust-label">simulation paths</div>
-    </div>
-    <div class="trust-item">
-      <div class="trust-number"><span>17</span></div>
-      <div class="trust-label">planning pages</div>
-    </div>
-    <div class="trust-item">
-      <div class="trust-number"><span>0</span></div>
-      <div class="trust-label">bytes sent to cloud</div>
-    </div>
-    <div class="trust-item">
-      <div class="trust-number"><span>3</span></div>
-      <div class="trust-label">IRS tax years built in</div>
-    </div>
-    <div class="trust-item">
-      <div class="trust-number"><span>9</span></div>
-      <div class="trust-label">SS claiming ages</div>
-    </div>
-    <div class="trust-item">
-      <div class="trust-number"><span>50</span></div>
-      <div class="trust-label">states in tax compare</div>
+  <div class="container">
+    <div class="trust-inner">
+      <div class="trust-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        No ads, no upsells
+      </div>
+      <div class="trust-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Your data stays yours
+      </div>
+      <div class="trust-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Built for real families, not Wall Street
+      </div>
+      <div class="trust-item">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        No financial advisor required
+      </div>
     </div>
   </div>
 </div>
 
-<!-- ── PRIVATE ── -->
-<section class="private" id="private">
-  <div class="section-inner">
-    <div class="private-split">
+<!-- ── Features ── -->
+<section id="features" class="features-bg">
+  <div class="container">
+    <div class="centered-head">
+      <p class="section-label">Everything in one place</p>
+      <h2 class="section-heading">A plan that actually answers your questions</h2>
+      <p class="section-sub centered">Stop juggling spreadsheets. Vundii connects the pieces of your retirement picture and lets you explore what-if scenarios with confidence.</p>
+    </div>
+
+    <div class="features-grid">
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3>Monte Carlo Projections</h3>
+        <p>Run 1,000 simulations across your retirement years. See your median outcome, best case, and where things could get tight.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <h3>Social Security Optimizer</h3>
+        <p>Model different claiming ages side by side. Find the break-even point and see how spousal benefits affect your total household income.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Withdrawal Strategy</h3>
+        <p>Model Roth conversions, tax-efficient decumulation order, and 4% rule variants — so you keep more of what you've saved.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <h3>Stress Testing</h3>
+        <p>What if the market drops 40% in year two? What if inflation runs hot? Run historical crash scenarios and find your weak spots before they happen.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <h3>Tax Planning</h3>
+        <p>Model Roth conversions and RMDs — with a year-by-year tax estimate and bracket analysis throughout retirement.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <h3>State Comparison</h3>
+        <p>Thinking of relocating? Compare state income tax across states — and see the real dollar impact on your retirement income.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Human section ── -->
+<section>
+  <div class="container">
+    <div class="human-grid">
+      <div class="human-image">
+        <img
+          src="https://images.unsplash.com/photo-1516733725897-1aa73b87c8e8?w=900&auto=format&fit=crop&q=80"
+          alt="Couple planning their retirement finances at home"
+          loading="lazy"
+        />
+      </div>
       <div>
-        <div class="eyebrow">Privacy first</div>
-        <h2 class="section-title">Your net worth isn't<br/>anyone else's business.</h2>
-        <div class="divider"></div>
-        <p class="section-sub">Vundii runs entirely on your Mac. No account creation. No subscriptions. No servers receiving your financial data.</p>
-        <div class="private-points">
-          <div class="pp">
-            <span class="pp-icon">💾</span>
-            <div>
-              <h4>Single SQLite file</h4>
-              <p>All your data lives in one file you choose. Move it to iCloud, Dropbox, or a USB drive — you're in full control. Backup and restore in one click.</p>
-            </div>
-          </div>
-          <div class="pp">
-            <span class="pp-icon">📄</span>
-            <div>
-              <h4>Full PDF export</h4>
-              <p>Generate a complete, printable retirement plan — Monte Carlo results, net worth, cash flow, Social Security analysis, and tax projections — entirely offline.</p>
-            </div>
-          </div>
-          <div class="pp">
-            <span class="pp-icon">🤖</span>
-            <div>
-              <h4>AI assistant stays local</h4>
-              <p>The optional AI chat uses Ollama. The language model runs on your CPU or GPU — your questions and your financial data never leave the machine.</p>
-            </div>
-          </div>
-          <div class="pp">
-            <span class="pp-icon">🔒</span>
-            <div>
-              <h4>Estimates only — no real account numbers</h4>
-              <p>Vundii is designed to work with approximate figures. We never ask for real bank account numbers, Social Security numbers, or financial institution credentials — and we never will. Your estimates are all we need.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="privacy-visual">
-        <div class="pv-title">Data flow audit</div>
-        <div class="pv-path">
-          <span>📁</span>
-          <span class="highlight">~/Documents/vundii.db</span>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:0.45rem;margin-top:0.5rem">
-          <div class="pv-row"><span class="pv-row-label">Stored on your Mac</span><span class="pv-badge badge-yes">Yes</span></div>
-          <div class="pv-row"><span class="pv-row-label">Syncs via iCloud / Dropbox</span><span class="pv-badge badge-enc">Optional</span></div>
-          <div class="pv-row"><span class="pv-row-label">Sent to any external server</span><span class="pv-badge badge-no">Never</span></div>
-          <div class="pv-row"><span class="pv-row-label">Account required</span><span class="pv-badge badge-no">No</span></div>
-          <div class="pv-row"><span class="pv-row-label">Internet required to run</span><span class="pv-badge badge-no">No</span></div>
-          <div class="pv-row"><span class="pv-row-label">PDF export</span><span class="pv-badge badge-yes">Fully offline</span></div>
-          <div class="pv-row"><span class="pv-row-label">AI inference</span><span class="pv-badge badge-enc">On-device</span></div>
-          <div class="pv-row"><span class="pv-row-label">Subscription</span><span class="pv-badge badge-no">None</span></div>
-          <div class="pv-row"><span class="pv-row-label">Real account numbers needed</span><span class="pv-badge badge-no">Never</span></div>
-          <div class="pv-row"><span class="pv-row-label">SSN or bank credentials needed</span><span class="pv-badge badge-no">Never</span></div>
+        <p class="section-label">Designed for real life</p>
+        <h2 class="section-heading">Retirement is more than a number</h2>
+        <p class="section-sub">
+          Most tools optimize for portfolio longevity. Vundii helps you figure out what <em>your</em> retirement actually looks like — when to claim Social Security, how to draw down accounts tax-efficiently, and whether you can afford to retire earlier than you thought.
+        </p>
+        <div class="quote-card">
+          <p class="quote-text">"More features than tools that cost twice as much — this covers everything I was looking for and then some."</p>
+          <p class="quote-author">— Beta user</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── SIMULATION ── -->
-<section class="simulation" id="simulation">
-  <div class="section-inner">
-    <div class="eyebrow">Monte Carlo Engine</div>
-    <h2 class="section-title">6,000 futures.<br/>Run in seconds.</h2>
-    <div class="divider"></div>
-    <p class="section-sub">Vundii's simulation engine models thousands of random market sequences to give you an honest probability distribution — not a single rosy projection.</p>
+<!-- ── How it works ── -->
+<section id="how-it-works" class="steps-bg">
+  <div class="container">
+    <div class="centered-head">
+      <p class="section-label">How it works</p>
+      <h2 class="section-heading">Up and running in minutes</h2>
+      <p class="section-sub centered">No bank logins, no linked accounts, no personal identifying information. Just enter your numbers and your plan comes to life.</p>
+    </div>
 
-    <div class="sim-cards">
-      <div class="sim-card">
-        <div class="sim-card-icon">🎲</div>
-        <h3>Stochastic paths</h3>
-        <p>Each path draws a unique sequence of annual returns sampled from a distribution calibrated to your equity/bond allocation and inflation rate. No two runs are the same.</p>
-        <div class="sim-card-num">6,000</div>
-        <div class="sim-card-numlabel">simulation paths per run</div>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-number">1</div>
+        <h3>Set up your profile</h3>
+        <p>Enter your age, retirement target, income, and any Social Security estimates. Add a spouse or partner if applicable.</p>
       </div>
-      <div class="sim-card">
-        <div class="sim-card-icon">🛡️</div>
-        <h3>Guardrail strategy</h3>
-        <p>Non-discretionary spending is always funded. Discretionary spending cuts 20% if the portfolio falls below 75% of its retirement-date value — automatically, in every path.</p>
-        <div class="sim-card-num">75%</div>
-        <div class="sim-card-numlabel">guardrail trigger threshold</div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <h3>Enter your accounts</h3>
+        <p>Manually add your 401(k), IRA, taxable accounts, and any pensions or annuities. No bank connections — you stay in full control of your data.</p>
       </div>
-      <div class="sim-card">
-        <div class="sim-card-icon">⚡</div>
-        <h3>Stress test</h3>
-        <p>Apply historical crash scenarios — 2008 Financial Crisis, 2000 Dot-com Bust, 1970s Stagflation — and see how your plan survives the worst the market has delivered.</p>
-        <div class="sim-card-num">8+</div>
-        <div class="sim-card-numlabel">historical crash scenarios</div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <h3>Explore your plan</h3>
+        <p>Run projections, stress-test your assumptions, compare scenarios, and see exactly where your plan is strong — and where it needs work.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── FEATURES ── -->
-<section class="features" id="features">
-  <div class="section-inner">
-    <div class="eyebrow">Everything you need</div>
-    <h2 class="section-title">A complete plan,<br/>not a calculator.</h2>
-    <div class="divider"></div>
-    <p class="section-sub">Vundii covers every dimension of retirement planning — spending, taxes, healthcare, estate, family, and more — in one cohesive tool that runs on your Mac.</p>
+<!-- ── App screenshot ── -->
+<section>
+  <div class="container">
+    <div class="centered-head">
+      <p class="section-label">The product</p>
+      <h2 class="section-heading">Powerful but not overwhelming</h2>
+      <p class="section-sub centered">A clean, focused interface built for people making real financial decisions — not financial advisors.</p>
+    </div>
 
-    <div class="feat-grid">
-      <div class="feat-card">
-        <div class="feat-icon">💸</div>
-        <h4>Expense Buckets</h4>
-        <p>Split spending into essential and discretionary categories. Set per-item inflation rates and age-range gates for expenses like college tuition or a mortgage payoff.</p>
-        <div class="feat-chips">
-          <span class="chip">Non-discretionary</span>
-          <span class="chip">Discretionary</span>
-          <span class="chip">Per-item inflation</span>
-          <span class="chip">Age constraints</span>
-        </div>
+    <div class="screenshot-wrap">
+      <div class="screenshot-bar">
+        <div class="dot dot-r"></div>
+        <div class="dot dot-y"></div>
+        <div class="dot dot-g"></div>
+        <div class="screenshot-url">app.vundii.com/dashboard</div>
       </div>
-
-      <div class="feat-card new">
-        <div class="feat-icon">↕️</div>
-        <h4>Decumulation Order Optimizer <span class="new-badge">New</span></h4>
-        <p>Calculates the tax-optimal withdrawal sequence across all account types — taxable, traditional, and Roth — year by year, accounting for RMDs, bracket management, and ACA cliff exposure.</p>
-        <div class="feat-chips">
-          <span class="chip new">Optimal sequencing</span>
-          <span class="chip new">Bracket-aware</span>
-          <span class="chip new">RMD integration</span>
-          <span class="chip">ACA cliff protection</span>
-        </div>
-      </div>
-
-      <div class="feat-card new">
-        <div class="feat-icon">💵</div>
-        <h4>Year-by-Year Cash Flow <span class="new-badge">New</span></h4>
-        <p>A complete income statement for every year of retirement: Social Security, portfolio withdrawals, pensions, and expenses — all in one scrollable timeline in real or nominal dollars.</p>
-        <div class="feat-chips">
-          <span class="chip new">Annual detail</span>
-          <span class="chip new">Real / nominal toggle</span>
-          <span class="chip">Income sources</span>
-        </div>
-      </div>
-
-      <div class="feat-card new">
-        <div class="feat-icon">📅</div>
-        <h4>RMD Projections <span class="new-badge">New</span></h4>
-        <p>Projects Required Minimum Distributions year by year for every traditional account using IRS Uniform Lifetime Tables. Shows RMD as a percentage of portfolio and tax bracket impact.</p>
-        <div class="feat-chips">
-          <span class="chip new">IRS ULT tables</span>
-          <span class="chip new">Per-account detail</span>
-          <span class="chip">Bracket overlay</span>
-        </div>
-      </div>
-
-      <div class="feat-card new">
-        <div class="feat-icon">🗺️</div>
-        <h4>State Tax Comparison <span class="new-badge">New</span></h4>
-        <p>Compare your estimated tax burden across all 50 states. See total tax — federal + state — for your projected retirement income. Find your enough in the right state.</p>
-        <div class="feat-chips">
-          <span class="chip new">All 50 states</span>
-          <span class="chip new">Total tax view</span>
-          <span class="chip">SS exemptions</span>
-        </div>
-      </div>
-
-      <div class="feat-card new">
-        <div class="feat-icon">🏦</div>
-        <h4>Net Worth & Balances <span class="new-badge">New</span></h4>
-        <p>Track net worth over time with assets and liabilities side by side. The Balances page shows portfolio allocation by account type, asset class, and tax treatment at a glance.</p>
-        <div class="feat-chips">
-          <span class="chip new">Net worth timeline</span>
-          <span class="chip new">By account type</span>
-          <span class="chip">Assets & liabilities</span>
-        </div>
-      </div>
-
-      <div class="feat-card">
-        <div class="feat-icon">👨‍👩‍👧</div>
-        <h4>Spouse & Family Planning</h4>
-        <p>Model joint retirement with separate retirement dates, life expectancies, and Social Security claiming ages for each spouse. Planning horizon extends to the longer-lived partner.</p>
-        <div class="feat-chips">
-          <span class="chip">Separate retirement dates</span>
-          <span class="chip">Per-spouse LE</span>
-          <span class="chip">SS coordination</span>
-        </div>
-      </div>
-
-      <div class="feat-card">
-        <div class="feat-icon">🔀</div>
-        <h4>What-if Scenarios</h4>
-        <p>Create named scenarios that override retirement date, spending level, equity allocation, or inflation. Compare them side-by-side on an overlay fan chart with success rate delta.</p>
-        <div class="feat-chips">
-          <span class="chip">Retire earlier/later</span>
-          <span class="chip">Spending changes</span>
-          <span class="chip">Overlay comparison</span>
-        </div>
-      </div>
-
-      <div class="feat-card">
-        <div class="feat-icon">🏥</div>
-        <h4>ACA Healthcare Cliff</h4>
-        <p>Tracks MAGI against the 400% FPL limit updated for household size as dependents age off — so you can optimize ACA subsidy eligibility during the pre-Medicare gap.</p>
-        <div class="feat-chips">
-          <span class="chip">Dynamic household size</span>
-          <span class="chip">FPL limit tracking</span>
-          <span class="chip">MAGI awareness</span>
-        </div>
+      <div class="screenshot-body">
+        <img src="assets/dashboard.png" alt="Vundii dashboard showing portfolio projection, net worth, and retirement timeline" />
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── PAGES ── -->
-<section class="pages" id="pages">
-  <div class="section-inner">
-    <div class="eyebrow">17 pages. One plan.</div>
-    <h2 class="section-title">Every dimension of retirement,<br/>covered.</h2>
-    <div class="divider"></div>
+<!-- ── Pricing ── -->
+<section id="pricing" class="pricing-section">
+  <div class="container">
+    <div class="centered-head">
+      <p class="section-label">Pricing</p>
+      <h2 class="section-heading">Simple, honest pricing</h2>
+      <p class="section-sub centered">One plan. Everything included. No tiers, no add-ons.</p>
+    </div>
 
-    <div class="pages-grid">
-      <div class="page-item">
-        <div class="page-num">01</div>
-        <div class="page-icon">🏠</div>
-        <h4>Dashboard</h4>
-        <p>At-a-glance plan health, net worth, success score, and key milestones.</p>
-      </div>
-      <div class="page-item">
-        <div class="page-num">02</div>
-        <div class="page-icon">📈</div>
-        <h4>Projections</h4>
-        <p>Monte Carlo fan chart with guardrail overlay, success rates, and real/nominal toggle.</p>
-      </div>
-      <div class="page-item is-new">
-        <div class="page-num">03 <span class="new-badge">New</span></div>
-        <div class="page-icon">💵</div>
-        <h4>Cash Flow</h4>
-        <p>Year-by-year income, withdrawals, Social Security, and expenses — complete retirement income statement.</p>
-      </div>
-      <div class="page-item is-new">
-        <div class="page-num">04 <span class="new-badge">New</span></div>
-        <div class="page-icon">📊</div>
-        <h4>Balances</h4>
-        <p>Portfolio allocation by account type, tax treatment, and asset class. Snapshot of where your money sits.</p>
-      </div>
-      <div class="page-item is-new">
-        <div class="page-num">05 <span class="new-badge">New</span></div>
-        <div class="page-icon">🏦</div>
-        <h4>Net Worth</h4>
-        <p>Assets and liabilities tracked over time. See your total net worth trajectory at a glance.</p>
-      </div>
-      <div class="page-item">
-        <div class="page-num">06</div>
-        <div class="page-icon">🔀</div>
-        <h4>Scenarios</h4>
-        <p>Named what-if scenarios. Compare plans on an overlay projection chart with side-by-side success rates.</p>
-      </div>
-      <div class="page-item is-new">
-        <div class="page-num">07 <span class="new-badge">New</span></div>
-        <div class="page-icon">⚡</div>
-        <h4>Stress Test</h4>
-        <p>Apply 2008, 2000, and 1970s crash scenarios to your plan. Know your floor before the market finds it.</p>
-      </div>
-      <div class="page-item">
-        <div class="page-num">08</div>
-        <div class="page-icon">🏛️</div>
-        <h4>Social Security</h4>
-        <p>Benefits at every claiming age 62–70. Spousal and survivor modeling. Break-even analysis.</p>
-      </div>
-      <div class="page-item">
-        <div class="page-num">09</div>
-        <div class="page-icon">🧾</div>
-        <h4>Tax Planning</h4>
-        <p>2024–2026 IRS brackets, RMD projections, and Roth conversion planner with bracket headroom.</p>
-      </div>
-      <div class="page-item is-new">
-        <div class="page-num">10 <span class="new-badge">New</span></div>
-        <div class="page-icon">📅</div>
-        <h4>RMDs</h4>
-        <p>Year-by-year Required Minimum Distributions using IRS Uniform Lifetime Tables, with bracket impact overlay.</p>
-      </div>
-      <div class="page-item is-new">
-        <div class="page-num">11 <span class="new-badge">New</span></div>
-        <div class="page-icon">🗺️</div>
-        <h4>State Tax Compare</h4>
-        <p>All 50 states. Total tax burden on your retirement income. Find the right place to land in Phase II.</p>
-      </div>
-      <div class="page-item is-new">
-        <div class="page-num">12 <span class="new-badge">New</span></div>
-        <div class="page-icon">↕️</div>
-        <h4>Withdrawal Strategy</h4>
-        <p>Decumulation order optimizer. Tax-optimal account sequencing year by year across traditional, Roth, and taxable.</p>
-      </div>
-      <div class="page-item">
-        <div class="page-num">13</div>
-        <div class="page-icon">👤</div>
-        <h4>My Plan</h4>
-        <p>Core settings: birth date, retirement date, income, asset allocation, glide path, and inflation assumptions.</p>
-      </div>
-      <div class="page-item">
-        <div class="page-num">14</div>
-        <div class="page-icon">👨‍👩‍👧</div>
-        <h4>Family & Dependents</h4>
-        <p>Spouse, children, and parents. Planning horizon and ACA household size adjust automatically.</p>
-      </div>
-      <div class="page-item">
-        <div class="page-num">15</div>
-        <div class="page-icon">💼</div>
-        <h4>Accounts</h4>
-        <p>All investment accounts — 401(k), Roth IRA, brokerage, HSA — with balances and withdrawal priority.</p>
-      </div>
-      <div class="page-item">
-        <div class="page-num">16</div>
-        <div class="page-icon">💸</div>
-        <h4>Expenses</h4>
-        <p>Essential and discretionary spending buckets with per-item inflation rates and age-range gates.</p>
-      </div>
-      <div class="page-item is-new">
-        <div class="page-num">17 <span class="new-badge">New</span></div>
-        <div class="page-icon">⚖️</div>
-        <h4>Assets & Liabilities</h4>
-        <p>Real estate, loans, and non-investment assets tracked alongside your portfolio for a complete balance sheet.</p>
-      </div>
+    <div class="pricing-card">
+      <span class="badge">Now in beta</span>
+      <div class="price" style="font-size:30px;line-height:1.2;letter-spacing:-0.5px;">Pricing to be<br>announced</div>
+      <p class="price-note">Vundii is in beta. Pricing will be announced after the beta testing period — start your free trial now and we'll share details before it ends.</p>
+
+      <ul class="pricing-features">
+        <li><span class="check">✓</span> Full Monte Carlo projections</li>
+        <li><span class="check">✓</span> Social Security optimizer + break-even analysis</li>
+        <li><span class="check">✓</span> Tax planning &amp; Roth conversion modeling</li>
+        <li><span class="check">✓</span> Withdrawal strategy &amp; RMD planner</li>
+        <li><span class="check">✓</span> Stress tests — market crashes, inflation, longevity</li>
+        <li><span class="check">✓</span> State tax comparison tool</li>
+        <li><span class="check">✓</span> Unlimited scenarios &amp; what-if analysis</li>
+      </ul>
+
+      <a href="https://app.vundii.com" class="btn-primary" style="width:100%;justify-content:center;">
+        Start your free trial
+      </a>
     </div>
   </div>
 </section>
 
-<!-- ── SS & TAX ── -->
-<section class="ss-tax" id="sstax">
-  <div class="section-inner">
-    <div class="eyebrow">Social Security & Tax</div>
-    <h2 class="section-title">Optimize every dollar<br/>before and after retirement.</h2>
-    <div class="divider"></div>
-    <p class="section-sub">The right SS claiming age and a disciplined Roth conversion strategy can add hundreds of thousands to your lifetime income.</p>
-
-    <div class="ss-tax-grid">
-      <div class="ss-card">
-        <div class="ss-card-top">
-          <h3>Social Security Optimizer</h3>
-          <p>Estimated benefit at every claiming age from 62 to 70. Models spousal benefits, survivor benefits, and your Full Retirement Age based on birth year. Break-even analysis shows the crossover age for each strategy.</p>
-        </div>
-        <div class="ss-visual">
-          <div class="ss-visual-label">Annual benefit by claiming age</div>
-          <div class="ss-bar-row"><span class="ss-bar-label">62</span><div class="ss-bar-track"><div class="ss-bar-fill" style="width:55%"></div></div><span class="ss-bar-val">$19,200</span></div>
-          <div class="ss-bar-row"><span class="ss-bar-label">64</span><div class="ss-bar-track"><div class="ss-bar-fill" style="width:65%"></div></div><span class="ss-bar-val">$22,800</span></div>
-          <div class="ss-bar-row"><span class="ss-bar-label">67</span><div class="ss-bar-track"><div class="ss-bar-fill" style="width:80%"></div></div><span class="ss-bar-val">$28,000</span></div>
-          <div class="ss-bar-row"><span class="ss-bar-label">68</span><div class="ss-bar-track"><div class="ss-bar-fill" style="width:88%"></div></div><span class="ss-bar-val">$30,240</span></div>
-          <div class="ss-bar-row"><span class="ss-bar-label">70</span><div class="ss-bar-track"><div class="ss-bar-fill" style="width:100%"></div></div><span class="ss-bar-val">$34,720</span></div>
-        </div>
-      </div>
-
-      <div class="ss-card">
-        <div class="ss-card-top">
-          <h3>Roth Conversion Planner</h3>
-          <p>Calculates how much you can convert each year while staying in your current tax bracket — with the exact tax cost, effective rate, and estimated years to full conversion.</p>
-        </div>
-        <div class="ss-visual">
-          <div class="ss-visual-label">Conversion analysis</div>
-          <div class="roth-rows">
-            <div class="roth-row"><span class="roth-row-label">Annual conversion amount</span><span class="roth-row-val">$42,500</span></div>
-            <div class="roth-row"><span class="roth-row-label">Tax cost this year</span><span class="roth-row-val">$6,375</span></div>
-            <div class="roth-row"><span class="roth-row-label">Effective rate</span><span class="roth-row-val">15.0%</span></div>
-            <div class="roth-row"><span class="roth-row-label">Years to full conversion</span><span class="roth-row-val">8 yrs</span></div>
-            <div class="roth-row"><span class="roth-row-label">Bracket headroom remaining</span><span class="roth-row-val">$11,200</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── WITHDRAWAL STRATEGY ── -->
-<section class="withdrawal">
-  <div class="section-inner">
-    <div class="wd-grid">
+<!-- ── Second human photo ── -->
+<section style="padding: 0 0 88px;">
+  <div class="container">
+    <div class="human-grid">
       <div>
-        <div class="eyebrow">Decumulation Order Optimizer</div>
-        <h2 class="section-title">Withdraw in the right<br/>order. Every year.</h2>
-        <div class="divider"></div>
-        <p class="section-sub" style="margin-bottom:2rem">The sequence in which you draw from taxable, traditional, and Roth accounts can mean tens of thousands in saved taxes over retirement.</p>
-        <div class="wd-points">
-          <div class="wd-point">
-            <span class="wd-point-icon">🎯</span>
-            <div>
-              <h4>Tax bracket-aware</h4>
-              <p>Fills brackets optimally — taking from traditional accounts up to the top of your current bracket before touching Roth.</p>
+        <p class="section-label">Who it's for</p>
+        <h2 class="section-heading">Built for the decade before — and after — retirement</h2>
+        <p class="section-sub">
+          Whether you're 10 years out or already retired, Vundii helps you make confident decisions. Model one more year of work, test different spending levels, and understand exactly what your financial life looks like decade by decade.
+        </p>
+        <div style="margin-top: 32px; display: flex; flex-direction: column; gap: 14px;">
+          <div style="display:flex;gap:12px;align-items:flex-start;">
+            <div style="width:20px;height:20px;border-radius:50%;background:var(--teal-l);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
             </div>
+            <p style="font-size:14px;color:var(--text-2);line-height:1.6;">Pre-retirees (ages 50–65) mapping out the transition</p>
           </div>
-          <div class="wd-point">
-            <span class="wd-point-icon">📅</span>
-            <div>
-              <h4>RMD-integrated</h4>
-              <p>Mandatory distributions are factored into the withdrawal plan so you never waste bracket headroom on an avoidable tax spike.</p>
+          <div style="display:flex;gap:12px;align-items:flex-start;">
+            <div style="width:20px;height:20px;border-radius:50%;background:var(--teal-l);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
             </div>
+            <p style="font-size:14px;color:var(--text-2);line-height:1.6;">Couples planning together, on the same page</p>
           </div>
-          <div class="wd-point">
-            <span class="wd-point-icon">🏥</span>
-            <div>
-              <h4>ACA cliff protection</h4>
-              <p>Keeps MAGI below the ACA subsidy cliff in pre-Medicare years by routing withdrawals to protect subsidy eligibility.</p>
+          <div style="display:flex;gap:12px;align-items:flex-start;">
+            <div style="width:20px;height:20px;border-radius:50%;background:var(--teal-l);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
             </div>
+            <p style="font-size:14px;color:var(--text-2);line-height:1.6;">Anyone who wants to understand their numbers — not just hand them to an advisor</p>
           </div>
         </div>
       </div>
-
-      <div class="order-visual">
-        <div class="order-visual-top">Withdrawal sequence · Age 63</div>
-        <div class="order-rows">
-          <div class="order-row active">
-            <div class="order-left">
-              <div class="order-num">1</div>
-              <div>
-                <div class="order-name">Taxable Brokerage</div>
-                <div class="order-type">Long-term gains · lowest tax cost</div>
-              </div>
-            </div>
-            <div class="order-pct">$24K</div>
-          </div>
-          <div class="order-row active">
-            <div class="order-left">
-              <div class="order-num">2</div>
-              <div>
-                <div class="order-name">Traditional IRA</div>
-                <div class="order-type">Fill to 22% bracket top</div>
-              </div>
-            </div>
-            <div class="order-pct">$18K</div>
-          </div>
-          <div class="order-row">
-            <div class="order-left">
-              <div class="order-num">3</div>
-              <div>
-                <div class="order-name">Roth IRA</div>
-                <div class="order-type">Preserve — bracket headroom remains</div>
-              </div>
-            </div>
-            <div class="order-pct">—</div>
-          </div>
-          <div class="order-row">
-            <div class="order-left">
-              <div class="order-num">4</div>
-              <div>
-                <div class="order-name">HSA</div>
-                <div class="order-type">Reserve for healthcare expenses</div>
-              </div>
-            </div>
-            <div class="order-pct">—</div>
-          </div>
-        </div>
+      <div class="human-image">
+        <img
+          src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=900&auto=format&fit=crop&q=80"
+          alt="Couple at home, relaxed and confident about their future"
+          loading="lazy"
+        />
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── AI CHAT ── -->
-<section class="ai-section">
-  <div class="section-inner">
-    <div class="ai-split">
-      <div>
-        <div class="eyebrow">AI Assistant (optional)</div>
-        <h2 class="section-title">Ask anything about<br/>your plan.</h2>
-        <div class="divider"></div>
-        <p class="section-sub" style="margin-bottom:2rem">The built-in chat has full context of your accounts, expenses, and projections. Powered by Ollama — runs locally, answers privately.</p>
-        <div class="ai-points">
-          <div class="ai-point">
-            <span class="ai-point-icon">🧠</span>
-            <div>
-              <h4>Full plan context</h4>
-              <p>Pre-loaded with your profile, accounts, expenses, and latest simulation results before every question.</p>
-            </div>
-          </div>
-          <div class="ai-point">
-            <span class="ai-point-icon">🔌</span>
-            <div>
-              <h4>Powered by Ollama + llama3.2</h4>
-              <p>Installs with <code style="font-size:0.85em;color:rgba(255,255,255,0.4)">./install.sh --with-ollama</code>. The model runs entirely on-device — no API keys.</p>
-            </div>
-          </div>
-          <div class="ai-point">
-            <span class="ai-point-icon">🛡️</span>
-            <div>
-              <h4>Nothing leaves your machine</h4>
-              <p>Your financial questions stay local. No usage limits, no subscription, no data harvesting.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="chat-window">
-        <div class="chat-top">
-          <div class="chat-indicator"></div>
-          AI Assistant · Ollama llama3.2 · on-device
-        </div>
-        <div class="chat-messages">
-          <div class="chat-msg user">
-            <div class="chat-sender">You</div>
-            <div class="chat-bubble">What happens to my success rate if I retire 2 years earlier?</div>
-          </div>
-          <div class="chat-msg ai">
-            <div class="chat-sender">Vundii AI</div>
-            <div class="chat-bubble">Retiring at 58 instead of 60 drops your success rate from 87% to ~74%. Two fewer accumulation years means $24K less in contributions and two more withdrawal years against a smaller portfolio. Run a Scenario to see the full fan chart — the guardrail strategy activates more frequently in the early years.</div>
-          </div>
-          <div class="chat-msg user">
-            <div class="chat-sender">You</div>
-            <div class="chat-bubble">How much Roth conversion room do I have this year?</div>
-          </div>
-          <div class="chat-msg ai">
-            <div class="chat-sender">Vundii AI</div>
-            <div class="chat-bubble">$11,200 of headroom in the 22% bracket. Converting that amount costs $2,464 in additional tax but moves funds into tax-free growth. The Tax Planning page shows the full bracket breakdown and year-by-year conversion schedule.</div>
-          </div>
-        </div>
-      </div>
-    </div>
+<!-- ── CTA ── -->
+<section class="cta-section">
+  <div class="container">
+    <h2>Know your number.<br>Trust your plan.</h2>
+    <p>Join early users who are planning a retirement they can actually afford to live.</p>
+    <a href="https://app.vundii.com" class="btn-primary">Start your free trial — no card needed</a>
+    <p class="cta-note">14-day free trial &nbsp;·&nbsp; Cancel anytime &nbsp;·&nbsp; Your data is always yours</p>
   </div>
 </section>
 
-<!-- ── INSTALL ── -->
-<section class="install" id="install">
-  <div class="section-inner">
-    <div class="eyebrow">Installation</div>
-    <h2 class="section-title">Download.<br/>Drag. Done.</h2>
-    <div class="divider"></div>
-    <p class="section-sub">No Python, no Node.js, no terminal. A self-contained Mac app — unzip and run.</p>
-
-    <div class="install-split">
-      <div class="install-steps">
-        <div class="install-step">
-          <div class="step-num">1</div>
-          <div class="step-body">
-            <h4>Download &amp; install</h4>
-            <p>Unzip the download and drag <code style="font-size:0.85em;color:rgba(255,255,255,0.4)">Vundii.app</code> to your Applications folder.</p>
-            <a href="https://github.com/shanuppaji-sketch/vundii-site/releases/download/v1.0.0/Vundii-arm64.zip"
-               style="display:inline-flex;align-items:center;gap:8px;margin-top:1rem;padding:10px 20px;background:var(--blue);color:#fff;border-radius:8px;font-size:0.9rem;font-weight:500;text-decoration:none;">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 12l-5-5 1.4-1.4L7 9.2V1h2v8.2l2.6-3.6L13 7l-5 5zM2 14h12v-2H2v2z"/></svg>
-              Vundii-arm64.zip · Apple Silicon
-            </a>
-          </div>
-        </div>
-        <div class="install-step">
-          <div class="step-num">2</div>
-          <div class="step-body">
-            <h4>Open for the first time</h4>
-            <p>macOS may show an "unidentified developer" warning on first launch. Right-click the app and choose <strong style="color:var(--fg-1)">Open</strong>, then confirm. You'll never see this again.</p>
-          </div>
-        </div>
-        <div class="install-step">
-          <div class="step-num">3</div>
-          <div class="step-body">
-            <h4>Activate your license</h4>
-            <p>Paste the license key from your welcome email and enter your email address. Your data stays on your Mac — nothing leaves your machine.</p>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <div class="requirements-card">
-          <div class="req-header">System requirements</div>
-          <div class="req-row"><span class="req-item">macOS</span><span class="req-val ok">12 Monterey or later</span></div>
-          <div class="req-row"><span class="req-item">Architecture</span><span class="req-val ok">Apple Silicon (M1 and later)</span></div>
-          <div class="req-row"><span class="req-item">Dependencies</span><span class="req-val ok">None — fully self-contained</span></div>
-          <div class="req-row"><span class="req-item">Internet</span><span class="req-val ok">Not required after install</span></div>
-          <div class="req-row"><span class="req-item">License</span><span class="req-val opt">Required · contact us to get one</span></div>
-        </div>
-
-        <div class="launch-card">
-          <h4>Your data never leaves your Mac</h4>
-          <p>Everything runs locally — the app, the calculations, the database. No cloud sync, no telemetry, no subscription.</p>
-          <div class="app-icon-row">
-            <div class="app-icon-box">
-              <svg width="24" height="24" viewBox="0 0 100 100" aria-hidden="true">
-                <circle cx="50" cy="28" r="7" fill="white"/>
-                <rect x="24" y="42" width="52" height="40" rx="9" fill="none" stroke="white" stroke-width="5"/>
-                <line x1="42" y1="54" x2="58" y2="54" stroke="white" stroke-width="5" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <div class="app-icon-row-info">
-              <h5>Vundii.app</h5>
-              <p>macOS native · Apple Silicon · v1.0</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── FOOTER ── -->
+<!-- ── Footer ── -->
 <footer>
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div>
-        <div class="footer-brand">
-          <svg width="22" height="22" viewBox="0 0 100 100" aria-hidden="true" style="color:#F5F5F7">
-            <circle cx="50" cy="28" r="7" fill="currentColor"/>
-            <rect x="24" y="42" width="52" height="40" rx="9" fill="none" stroke="currentColor" stroke-width="5"/>
-            <line x1="42" y1="54" x2="58" y2="54" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
-          </svg>
-          <span class="footer-brand-name">Vund<span class="ii">ii</span></span>
-        </div>
-        <p class="footer-tagline">Find your enough. Private retirement planning, built for real people.</p>
-      </div>
+  <div class="container">
+    <div class="footer-inner">
+      <a href="/" class="footer-logo">vundii</a>
       <div class="footer-links">
-        <div class="footer-col">
-          <h5>Analysis</h5>
-          <ul>
-            <li>Monte Carlo</li>
-            <li>Cash Flow</li>
-            <li>Balances</li>
-            <li>Net Worth</li>
-            <li>Stress Test</li>
-            <li>Scenarios</li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h5>Planning</h5>
-          <ul>
-            <li>Withdrawal Strategy</li>
-            <li>Roth Conversion</li>
-            <li>Social Security</li>
-            <li>RMDs</li>
-            <li>State Tax Compare</li>
-            <li>ACA Healthcare</li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h5>Technical</h5>
-          <ul>
-            <li>FastAPI · Python</li>
-            <li>React · TypeScript</li>
-            <li>SQLite · local-first</li>
-            <li>PyWebView</li>
-            <li>Ollama · llama3.2</li>
-            <li><a href="telemetry/index.html">Observability</a></li>
-          </ul>
-        </div>
+        <a href="https://app.vundii.com">Sign in</a>
+        <a href="/guide/">Guide</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/terms.html">Terms</a>
+        <a href="mailto:vundii.support@gmail.com">Contact</a>
       </div>
+      <p class="footer-copy">© 2026 Vundii. All rights reserved.</p>
     </div>
-    <div class="footer-bottom">
-      © 2026 [LLC NAME] &nbsp;·&nbsp; <a href="/terms.html" style="color:inherit;text-decoration:underline">Terms</a> &nbsp;·&nbsp; <a href="/privacy.html" style="color:inherit;text-decoration:underline">Privacy</a> &nbsp;·&nbsp; <a href="mailto:vundii.support@gmail.com" style="color:inherit;text-decoration:underline">Contact</a>
-    </div>
+    <p class="footer-disclaimer">
+      <strong>No tracking cookies.</strong> This site uses localStorage to keep you signed in. No advertising, analytics, or third-party tracking cookies are used.
+    </p>
+    <p class="footer-disclaimer">
+      <strong>Not financial advice.</strong> Vundii is provided for informational and educational purposes only. The projections, estimates, and analyses generated by this tool do not constitute investment advice, tax advice, legal advice, or any other form of professional financial guidance. All outputs are based on assumptions you provide and hypothetical scenarios — they are not predictions of future results. Past market performance does not guarantee future returns. You should consult a qualified financial advisor, tax professional, or attorney before making any financial decisions. Vundii LLC assumes no liability for decisions made based on the use of this tool.
+    </p>
   </div>
 </footer>
 

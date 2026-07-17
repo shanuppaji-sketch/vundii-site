@@ -7,53 +7,40 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/site.css" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --dark: #0a0a0c; --carbon: #111114; --mid: #1c1c22;
-      --muted: #6e6e7a; --white: #ffffff;
-      --fg-1: #F5F5F7; --fg-2: #C7C7CC; --fg-3: #98989D;
-      --blue: #0071E3; --border: rgba(255,255,255,0.10);
-    }
-    body { background: var(--dark); color: var(--fg-2); font-family: 'Inter Tight', sans-serif; font-size: 16px; line-height: 1.7; }
-    nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 40px; border-bottom: 1px solid var(--border); }
-    nav a.logo { text-decoration: none; color: var(--white); font-size: 18px; font-weight: 600; letter-spacing: -0.02em; }
-    nav a.logo span { color: var(--blue); }
-    nav a.back { color: var(--fg-3); font-size: 14px; text-decoration: none; }
-    nav a.back:hover { color: var(--white); }
-    main { max-width: 720px; margin: 60px auto; padding: 0 24px 80px; }
-    h1 { color: var(--white); font-size: 32px; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 8px; }
-    .meta { color: var(--fg-3); font-size: 14px; margin-bottom: 48px; }
-    h2 { color: var(--white); font-size: 18px; font-weight: 600; margin: 40px 0 12px; }
-    p { margin-bottom: 16px; }
-    ul { padding-left: 24px; margin-bottom: 16px; }
-    li { margin-bottom: 8px; }
-    a { color: var(--blue); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    table { width: 100%; border-collapse: collapse; margin-bottom: 16px; font-size: 14px; }
-    th { text-align: left; color: var(--white); padding: 10px 12px; background: var(--mid); border: 1px solid var(--border); }
-    td { padding: 10px 12px; border: 1px solid var(--border); vertical-align: top; }
-    footer { text-align: center; padding: 40px 24px; color: var(--fg-3); font-size: 13px; border-top: 1px solid var(--border); }
-    footer a { color: var(--fg-3); text-decoration: underline; }
+    .meta { color: var(--text-3); font-size: 14px; margin-bottom: 40px; }
   </style>
 </head>
 <body>
 
-<nav>
-  <a class="logo" href="/">Vund<span>ii</span></a>
-  <a class="back" href="/">← Back to vundii.com</a>
+<nav class="site-nav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">vundii</a>
+      <div class="nav-links">
+        <a href="/guide/">Guide</a>
+        <a href="/#pricing">Pricing</a>
+      </div>
+      <div class="nav-cta">
+        <a href="https://app.vundii.com" class="nav-signin">Sign in</a>
+        <a href="https://app.vundii.com" class="btn-primary">Start free trial</a>
+      </div>
+    </div>
+  </div>
 </nav>
 
-<main>
+<main class="article">
   <h1>Privacy Policy</h1>
   <p class="meta">Effective date: June 1, 2026 &nbsp;·&nbsp; [LLC NAME], Texas</p>
 
   <p>This Privacy Policy explains how [LLC NAME] ("we," "us," or "our") collects, uses, and protects information when you use Vundii ("the Service"). We take the privacy of your financial data seriously.</p>
 
-  <div style="background:rgba(48,209,88,0.08);border:1px solid rgba(48,209,88,0.3);border-radius:10px;padding:20px 24px;margin:24px 0;color:#30D158;font-size:15px;line-height:1.6;">
-    <strong>Vundii is designed to work with estimates only.</strong><br/>
-    We actively discourage entering real account numbers, Social Security numbers, bank credentials, or any other sensitive personally identifiable information (PII). Vundii does not need this information to function — approximate figures are all that is required. Do not enter real account numbers, SSNs, or institution credentials into Vundii.
+  <div class="plain">
+    <div class="plain-label">Estimates only</div>
+    <p><strong>Vundii is designed to work with estimates only.</strong>
+    We actively discourage entering real account numbers, Social Security numbers, bank credentials, or any other sensitive personally identifiable information (PII). Vundii does not need this information to function — approximate figures are all that is required. Do not enter real account numbers, SSNs, or institution credentials into Vundii.</p>
   </div>
 
   <h2>1. Information We Collect</h2>
@@ -129,8 +116,20 @@
   <p>Questions or requests regarding your privacy: <a href="mailto:vundii.support@gmail.com">vundii.support@gmail.com</a></p>
 </main>
 
-<footer>
-  <p>© 2026 [LLC NAME] · <a href="/terms.html">Terms</a> · <a href="/privacy.html">Privacy</a> · <a href="mailto:vundii.support@gmail.com">Contact</a></p>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <a href="/" class="footer-logo">vundii</a>
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/guide/">Guide</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/terms.html">Terms</a>
+        <a href="mailto:vundii.support@gmail.com">Contact</a>
+      </div>
+      <p>© 2026 [LLC NAME]. All rights reserved.</p>
+    </div>
+  </div>
 </footer>
 
 </body>
