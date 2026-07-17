@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://vundii.com/sitemap.xml
+Sitemap: https://www.vundii.com/sitemap.xml
