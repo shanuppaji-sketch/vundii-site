@@ -60,34 +60,49 @@ nav.site-nav {
 }
 
 /* ── Article layout (concept + legal pages) ── */
-main.article { max-width: 760px; margin: 0 auto; padding: 56px 24px 80px; }
+main.article { max-width: 840px; margin: 0 auto; padding: 64px 24px 96px; }
 
 .eyebrow {
   display: inline-block; font-size: 12px; font-weight: 600;
   letter-spacing: 0.08em; text-transform: uppercase;
   color: var(--teal); background: var(--teal-l);
-  padding: 4px 12px; border-radius: 20px; margin-bottom: 18px;
+  padding: 4px 12px; border-radius: 20px; margin-bottom: 20px;
   text-decoration: none;
 }
 a.eyebrow:hover { background: var(--sand-3); }
 
 main.article h1 {
-  font-size: clamp(30px, 4.5vw, 42px); font-weight: 800;
-  line-height: 1.15; letter-spacing: -1px; margin-bottom: 14px;
+  font-size: clamp(32px, 4.5vw, 46px); font-weight: 800;
+  line-height: 1.15; letter-spacing: -1px; margin-bottom: 16px;
 }
-.lede { font-size: 18px; color: var(--text-2); margin-bottom: 36px; }
+.lede { font-size: 20px; color: var(--text-2); margin-bottom: 44px; line-height: 1.6; }
 
 main.article h2 {
-  font-size: 22px; font-weight: 700; letter-spacing: -0.3px;
-  margin: 44px 0 12px;
+  font-size: 24px; font-weight: 700; letter-spacing: -0.3px;
+  margin: 44px 0 14px;
 }
-main.article h3 { font-size: 17px; font-weight: 600; margin: 28px 0 8px; }
-main.article p { margin-bottom: 16px; color: var(--text-2); }
-main.article li { margin-bottom: 10px; color: var(--text-2); }
-main.article ul, main.article ol { padding-left: 24px; margin-bottom: 16px; }
+main.article h3 { font-size: 18px; font-weight: 600; margin: 28px 0 8px; }
+main.article p { margin-bottom: 18px; color: var(--text-2); font-size: 16.5px; line-height: 1.75; }
+main.article li { margin-bottom: 12px; color: var(--text-2); font-size: 16.5px; line-height: 1.7; }
+main.article ul, main.article ol { padding-left: 24px; margin-bottom: 18px; }
 main.article strong { color: var(--text-1); }
 main.article a { color: var(--teal); text-decoration: none; }
 main.article a:hover { text-decoration: underline; }
+
+/* Blog-style section cards */
+main.article section.block {
+  background: #fff; border: 1px solid var(--sand-3);
+  border-radius: 16px; padding: 36px 40px;
+  margin-bottom: 28px;
+  box-shadow: 0 1px 3px rgba(26, 23, 20, 0.03);
+}
+main.article section.block h2 { margin-top: 0; }
+main.article section.block > p:last-child,
+main.article section.block > ul:last-child,
+main.article section.block > ol:last-child { margin-bottom: 0; }
+@media (max-width: 640px) {
+  main.article section.block { padding: 26px 22px; border-radius: 14px; }
+}
 
 main.article table { width: 100%; border-collapse: collapse; margin: 8px 0 20px; font-size: 14px; }
 main.article th { text-align: left; padding: 10px 12px; background: var(--sand-2); border: 1px solid var(--sand-3); color: var(--text-1); }
@@ -96,13 +111,16 @@ main.article td { padding: 10px 12px; border: 1px solid var(--sand-3); vertical-
 /* Plain-English callout at the top of every concept page */
 .plain {
   background: var(--teal-l); border: 1px solid #b9e2ee;
-  border-radius: var(--radius); padding: 20px 24px; margin-bottom: 36px;
+  border-radius: 16px; padding: 30px 36px; margin-bottom: 28px;
 }
 .plain .plain-label {
   font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
-  text-transform: uppercase; color: var(--teal-d); margin-bottom: 6px;
+  text-transform: uppercase; color: var(--teal-d); margin-bottom: 8px;
 }
-.plain p { color: var(--text-1); font-size: 16px; margin: 0; }
+.plain p { color: var(--text-1); font-size: 17px; margin: 0; line-height: 1.7; }
+@media (max-width: 640px) {
+  .plain { padding: 24px 22px; }
+}
 
 /* Tip / example boxes */
 .example {
@@ -176,10 +194,13 @@ main.article td { padding: 10px 12px; border: 1px solid var(--sand-3); vertical-
 .concept-card p { font-size: 14px; color: var(--text-2); margin: 0; line-height: 1.55; }
 
 /* ── Glossary ── */
-.term { padding: 20px 0; border-bottom: 1px solid var(--sand-3); }
-.term:last-child { border-bottom: none; }
-.term h3 { font-size: 16px; font-weight: 700; margin: 0 0 6px; scroll-margin-top: 88px; }
-.term p { margin: 0; font-size: 15px; }
+.term {
+  background: #fff; border: 1px solid var(--sand-3);
+  border-radius: 16px; padding: 26px 30px; margin-bottom: 16px;
+  box-shadow: 0 1px 3px rgba(26, 23, 20, 0.03);
+}
+.term h3 { font-size: 17px; font-weight: 700; margin: 0 0 8px; scroll-margin-top: 88px; }
+.term p { margin: 0; font-size: 15.5px; line-height: 1.7; }
 
 /* ── Footer (matches landing tone) ── */
 footer.site-footer {
